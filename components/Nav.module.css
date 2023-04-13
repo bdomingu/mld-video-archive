@@ -1,0 +1,11 @@
+.navContainer {
+    background: #121212;
+    width: 1440px;
+    height: 181px;
+    border-bottom: 3px solid #740000;
+}
+
+.logo {
+    width: 150px;
+    height: 96.61px;
+}
