@@ -1,11 +1,14 @@
 import Layout from '@/components/Layout'
+import styles from './index.module.css';
 
 
 export default function Home() {
   return (
     <div>
       <Layout>
-        <h1>hi</h1>
+        <div className={styles.container}>
+          
+        </div>
       </Layout>
     </div>
       

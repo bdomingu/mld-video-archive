@@ -7,7 +7,7 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({children}) => {
     return (
-        <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+        <div >
             <Nav/>
             <div style={{flex: 1}}>
               {children}

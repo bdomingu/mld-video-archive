@@ -27,9 +27,7 @@ export default function Nav() {
                
                 <button className={styles.menuButton} onClick={handleClick}>
                     <div className={styles.hamburgerIcon}>
-                        <span><FontAwesomeIcon icon={faBars} size='2x'></FontAwesomeIcon></span>
-                           
-                        
+                        <span><FontAwesomeIcon icon={faBars} size='2x'></FontAwesomeIcon></span> 
                     </div>
                 </button>
                 <ul className={showMenu ? styles.menuListActive : styles.menuList}>

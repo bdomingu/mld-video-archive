@@ -1,0 +1,15 @@
+.container {
+    background-image:url('/images/mldBg.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    padding-top: 50px;
+}
+
+@media (max-width: 768px) {
+    .container {
+      height: 100vh;
+      padding-top: 20px;
+      background-size: cover;
+    }
+  }
