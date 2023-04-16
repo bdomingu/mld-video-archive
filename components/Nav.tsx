@@ -19,7 +19,7 @@ export default function Nav() {
         <nav className={styles.navContainer}>
             <div className={styles.navContent}>
                 <div className={styles.logo}>
-                <img src='/images/image8.png' />
+                <Link href='/ '><img src='/images/image8.png' /></Link>
                 </div>
                 <div className={styles.text}>
                 <h2>Modern Life Dating</h2>
@@ -34,7 +34,7 @@ export default function Nav() {
                 <ul className={showMenu ? styles.menuListActive : styles.menuList}>
                 <div className={styles.menu}>
                     <Link href='/login'><li>Login</li></Link>
-                    <li>Signup</li>
+                    <Link href='/signup'><li>Signup</li></Link>
                 </div>
                 </ul>
             </div>
