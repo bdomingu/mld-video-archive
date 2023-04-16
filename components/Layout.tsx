@@ -3,9 +3,10 @@ import Footer from './Footer';
 
 type LayoutProps = {
     children: React.ReactNode
+    footerColor?: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({children}) => {
+const Layout: React.FC<LayoutProps> = ({children, footerColor}) => {
     return (
         <div >
             <Nav/>
@@ -13,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({children}) => {
               {children}
             </div>
             
-            <Footer/>
+            <Footer footerColor={footerColor}/>
         </div>
     )
 }

@@ -4,7 +4,7 @@ import styles from './login.module.css'
 export default function Login() {
     
     return (
-        <Layout>
+        <Layout footerColor="black">
             <div className={styles.container}>
             <div className={styles.login}>
                 <div className={styles.text}>

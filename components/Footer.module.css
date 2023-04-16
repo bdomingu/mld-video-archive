@@ -3,6 +3,10 @@
     
 }
 
+.black {
+   background-color: #121212; 
+}
+
 .footerContent {
     display: flex;
     flex-direction: row;

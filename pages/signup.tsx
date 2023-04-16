@@ -3,7 +3,7 @@ import styles from './signup.module.css'
 
 export default function Signup() {
     return (
-        <Layout>
+        <Layout footerColor="black">
             <div className={styles.container}>
             <div className={styles.signup}>
                 <div className={styles.text}>

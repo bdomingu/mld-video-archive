@@ -9,9 +9,12 @@ import { faInstagramSquare} from '@fortawesome/free-brands-svg-icons';
 
 config.autoAddCss = false;
 
-export default function Footer() {
+export default function Footer({ footerColor }: {footerColor?: string}) {
     return (
-     <footer className={styles.footerContainer}>
+     <footer 
+     className={ `${styles.footerContainer} ${footerColor ? styles[footerColor] : "" 
+    }`}
+     >
         <div className={styles.footerContent}>
             <div className={styles.logo}>
             <img src='/images/image8.png' />

@@ -1,5 +1,6 @@
 .container {
     background-image: url('/images/bg.png');
+    border-bottom: 1px solid #740000;
     background-size: cover;
     background-position: center;
     height: 842px; 
