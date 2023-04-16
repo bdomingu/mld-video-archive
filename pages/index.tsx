@@ -7,7 +7,21 @@ export default function Home() {
     <div>
       <Layout>
         <div className={styles.container}>
-          
+          <div className={styles.heroImage}>
+            <img src='/images/mld.png'/>
+          </div>
+          <div className={styles.contentContainer}>
+          <div className={styles.content}>
+            <h1>MLD Videos & Courses</h1>
+            <p>Lorem ipsum dolor sit amet consectetur. Lorem facilisis iaculis pretium sagittis eget. 
+              Sollicitudin feugiat iaculis justo lacus bibendum. Non in eu est nec laoreet in dignissim 
+              scelerisque sagittis. Consectetur nibh fusce nibh platea et. Odio mattis at faucibus velit.
+               Vitae justo quis ornare vivamus ornare. Nulla neque massa ultrices non.</p>
+            <div className={styles.button}>
+            <button>Get Started</button>
+            </div>
+          </div>
+        </div>
         </div>
       </Layout>
     </div>
