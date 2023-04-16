@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import styles from './Nav.module.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
@@ -32,7 +33,7 @@ export default function Nav() {
                 </button>
                 <ul className={showMenu ? styles.menuListActive : styles.menuList}>
                 <div className={styles.menu}>
-                    <li>Login</li>
+                    <Link href='/login'><li>Login</li></Link>
                     <li>Signup</li>
                 </div>
                 </ul>

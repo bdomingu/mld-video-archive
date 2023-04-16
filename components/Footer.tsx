@@ -11,7 +11,7 @@ config.autoAddCss = false;
 
 export default function Footer() {
     return (
-     <footer className={styles.container}>
+     <footer className={styles.footerContainer}>
         <div className={styles.footerContent}>
             <div className={styles.logo}>
             <img src='/images/image8.png' />
