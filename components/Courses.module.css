@@ -1,0 +1,128 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: -20px;
+}
+
+.image {
+    background-color: #868686;
+    width: 231px;
+    height: 227px;
+    margin-top:70px;
+}
+
+.content {
+    background-color: #121212;
+    width: 901px;
+    height: 227px;
+    margin-top: 70px;
+}
+
+.content h1 {
+    font-family: 'Zilla Slab', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2em;
+    color: #EAEAEA;
+    padding-left: 10px;
+}
+
+.content p {
+    font-family: 'Niramit', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25em;
+    color: #EAEAEA;
+    padding-left: 10px;
+}
+
+.learnMore {
+    display: flex;
+}
+
+.learnMore button {
+    background-color: #3A3A3A;
+    border: 1px solid #740000;
+    width: 184px;
+    height: 37px;
+    font-family: 'Zilla Slab', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25em;
+    text-align: center;
+    text-transform: uppercase;
+    color: #EAEAEA;
+    margin-left: 10px;
+}
+
+
+@media only screen and (max-width:1150px) {
+    .image {
+        width: 184px;
+        height: 235px;
+    }
+    
+    .content {
+        width: 610px;
+        height: 235px;
+    }
+}
+
+@media only screen and (max-width:805px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+    }
+
+    .image {
+        width: 408px;
+        height: 198px;
+
+    }
+    
+    .content {
+        width: 408px;
+        height: 295px;
+        margin-top: 0px;
+    }
+
+    .content h1 {
+     text-align: center;
+    }
+
+    .content p {
+        text-align: center;
+    }
+    
+    .content button {
+        margin: auto;
+    }
+    
+}
+
+@media only screen and (max-width:420px) {
+    
+    .image {
+        width: 307px;
+        height: 138px;
+    }
+    
+    .content {
+        width: 307px;
+        height: 240px;
+        margin-top: 0px;
+    }
+
+    .content h1 {
+        font-size: 1.5em;
+    }
+
+    .content p {
+        font-size: 1em;
+       
+    }
+}
