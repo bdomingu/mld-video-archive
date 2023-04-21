@@ -14,8 +14,13 @@
     background-color: #3A3A3A;
     box-sizing: border-box;
     margin-bottom: 1px;
+    font-family: 'Zilla Slab';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2em;
+    color: #EAEAEA;
   }
-  
+
   .accordionTitle:focus {
     outline: none;
     background-color: #272727;
@@ -26,13 +31,32 @@
     padding: 1rem;
     width: 80%;
     margin: auto;
-    height: 862px;
+    height: auto;
     background-color: #3A3A3A;
     box-sizing: border-box;
     padding-top: 30px;
+    
   }
   
   .accordionContent.open {
     display: block;
   }
   
+/* 
+  @media only screen and (max-width:770px) {
+    .accordionContent {
+      
+      height: 822px;
+    
+      
+    }
+  }
+
+  @media only screen and (max-width:577px) {
+    .accordionContent {
+      
+      height: 862px;
+    
+      
+    }
+  } */

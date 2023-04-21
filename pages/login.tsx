@@ -22,7 +22,7 @@ export default function Login() {
                      </form>
                      <div className={styles.flex}>
                      <a>Forgot Password?</a>
-                     <a>Don't have an account? Sign Up</a>
+                     <a>Don&apos;t have an account? Sign Up</a>
                      </div>
                 </div>
             </div>

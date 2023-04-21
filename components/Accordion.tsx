@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import styles from './Accordion.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 
 interface Props {
     title: string;
@@ -19,7 +22,8 @@ export default function Accordion({ title, children }: Props) {
         <div className={styles.accordion}>
           <button className={styles.accordionTitle} onClick={toggleAccordion}>
             {title}
-          </button>
+            <span><FontAwesomeIcon icon={faPlus} /> </span> 
+            </button>
           <div className={`${styles.accordionContent} ${isOpen ? styles.open : ''}`}>
             {children}
           </div>
