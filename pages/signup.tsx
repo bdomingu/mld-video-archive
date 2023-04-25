@@ -2,6 +2,8 @@ import Layout from "@/components/Layout";
 import styles from './signup.module.css'
 import axios from 'axios';
 import { useState } from "react";
+import { useRouter } from "next/router";
+// import { ToolTip, TextField} from '@material-ui-core';
 
 export default function Signup() {
     const [name, setName] = useState('');
@@ -9,6 +11,8 @@ export default function Signup() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const router = useRouter();
+
 
 
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>):Promise<void> => {
@@ -22,7 +26,13 @@ export default function Signup() {
         }
 
         const response = await axios.post('api/register', user)
-        console.log(response)
+        const status = response.status
+        console.log(status)
+
+        if(status === 201) {
+             router.push('/login');
+        }
+       
 
     } catch (error:any) {
           setError(error.response.data.message);

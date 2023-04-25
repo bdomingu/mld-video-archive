@@ -32,6 +32,7 @@
     max-width: 100%;
     width:675px;
     height: 50px;
+    color: #EAEAEA;
 }
 .button{
     display: flex;

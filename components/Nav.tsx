@@ -8,7 +8,10 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 config.autoAddCss = false;
 
-export default function Nav() {
+interface Props {
+    loggedIn: boolean;
+}
+export default function Nav({ loggedIn }:Props) {
     const [showMenu, setShowMenu] = useState(false);
 
     const handleClick = () => {
@@ -19,11 +22,11 @@ export default function Nav() {
         <nav className={styles.navContainer}>
             <div className={styles.navContent}>
                 <div className={styles.logo}>
-                <Link href='/ '><img src='/images/image8.png' /></Link>
+                <Link href='/'><img src='/images/image8.png' /></Link>
                 </div>
                 <div className={styles.text}>
                 <h2>Modern Life Dating</h2>
-                 <h3>Video Archive</h3>
+                <h3>Video Archive</h3>
                 </div>
                
                 <button className={styles.menuButton} onClick={handleClick}>
@@ -31,12 +34,30 @@ export default function Nav() {
                         <span><FontAwesomeIcon icon={faBars} size='2x'></FontAwesomeIcon></span> 
                     </div>
                 </button>
+               
+                {loggedIn ? (
+                    <>
                 <ul className={showMenu ? styles.menuListActive : styles.menuList}>
                 <div className={styles.menu}>
-                    <Link href='/login'><li>Login</li></Link>
-                    <Link href='/signup'><li>Signup</li></Link>
+                    <Link href=''><li>Logout</li></Link>
+                    <Link href='/courseHome'><li>My Courses</li></Link>
+                    <Link href='/home'><li>Video Archive</li></Link>
+
                 </div>
                 </ul>
+                </> 
+                ) : (
+                    <>
+                    <ul className={showMenu ? styles.menuListActive : styles.menuList}>
+                    <div className={styles.menu}>
+                        <Link href='/login'><li>Login</li></Link>
+                        <Link href='/signup'><li>Signup</li></Link>
+                    </div>
+                    </ul>
+                    </>
+                )
+                }
+           
             </div>
             
         </nav>

@@ -1,21 +1,22 @@
-import type { ConnectOptions } from 'mongoose';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connectToDatabase = async () => {
-    try {
-        const MONGODB_URI = process.env.MONGODB_URI as string;
-        console.log(MONGODB_URI)
-        await mongoose.connect(MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        } as ConnectOptions);
-        console.log('Connected to database');
-    } catch (error: any) {
-        console.error(error.message)
+
+interface Database {
+    db: mongoose.Connection;
+  }
+  
+  const connectToDatabase = (): Database => {
+    const MONGODB_URI = process.env.MONGODB_URI;
+    if (!MONGODB_URI) {
+      throw new Error('MONGODB_URI is not defined');
+    } else {
+      const connection = mongoose.createConnection(MONGODB_URI);
+      console.log("connected to the db")
+      return { db: connection };
     }
-}
+  };
 
 export default connectToDatabase;
