@@ -3,19 +3,35 @@ import Link from 'next/link';
 import styles from './Nav.module.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useRouter } from "next/router";
+
 
 config.autoAddCss = false;
 
 interface Props {
     loggedIn: boolean;
 }
+
 export default function Nav({ loggedIn }:Props) {
     const [showMenu, setShowMenu] = useState(false);
+    const router = useRouter();
 
     const handleClick = () => {
         setShowMenu(!showMenu);
+    }
+
+    const handleLogout = async () => {
+        const response = await axios.get('api/logout')
+        const status = response.status;
+        if(status === 200) {
+            Cookies.remove('token', { path: '/' })
+            router.push('/')
+        }
+
     }
 
     return (
@@ -39,7 +55,7 @@ export default function Nav({ loggedIn }:Props) {
                     <>
                 <ul className={showMenu ? styles.menuListActive : styles.menuList}>
                 <div className={styles.menu}>
-                    <Link href=''><li>Logout</li></Link>
+                    <button onClick={handleLogout}><li>Logout</li></button>
                     <Link href='/courseHome'><li>My Courses</li></Link>
                     <Link href='/home'><li>Video Archive</li></Link>
 

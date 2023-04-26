@@ -4,7 +4,6 @@ import connectToDatabase from "./database";
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import { serialize } from 'cookie';
-import * as Yup from 'yup';
 
 /* Need to create a logout route
   Need to implement the forgot password
@@ -16,7 +15,7 @@ dotenv.config();
 const secret = process.env.SECRET_KEY as string;
 
 const setTokenCookieMiddleware = (res: NextApiResponse, token: string) => {
-  res.setHeader('Set-Cookie', serialize('token', token, {
+  res.setHeader('Set-Cookie', serialize('protected-token', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
@@ -56,17 +55,18 @@ const login = async (req:NextApiRequest, res:NextApiResponse) => {
         return res.status(401).send({message: 'Invalid email or password'})
       }
 
-      const token = jwt.sign({ userId: user.id }, secret, {expiresIn: '1h'});
+      const token = jwt.sign({ userId: user._id }, secret, {expiresIn: '1h'});
       setTokenCookieMiddleware(res, token);
 
-      return res.status(200).json({user, token})
+      return res.status(200).json({token, user, message: 'Logged in successfully'})
 
+      
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Internal Server Error' });
 
     }
-    
+   
 }
 
 export default login;

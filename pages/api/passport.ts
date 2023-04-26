@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import User, { IUserDocument } from './User';
+import User, { IUserDocument } from './models/User';
 import bcrypt from 'bcrypt';
 
 

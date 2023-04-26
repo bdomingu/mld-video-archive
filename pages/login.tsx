@@ -3,6 +3,9 @@ import axios from 'axios';
 import Layout from "@/components/Layout";
 import styles from './login.module.css';
 import { useRouter } from "next/router";
+import Cookies from 'js-cookie';
+import Link from 'next/link';
+
 
 export default function Login() {
     const [userEmail, setUserEmail] = useState('');
@@ -19,9 +22,11 @@ export default function Login() {
                 email: userEmail,
                 password: userPassword
             }
-            console.log(registeredUser)
+           
             const response = await axios.post('api/login', registeredUser)
-            console.log(response)
+            const token = await response.data.token
+            const expirationDate = new Date(Date.now() + 60 * 60 * 1000); 
+            Cookies.set('token', token, {expires: expirationDate, path: '/'});
             const status = response.status
             if (status === 200){
                 router.push('/home')
@@ -31,6 +36,7 @@ export default function Login() {
         }
 
     }
+
 
     return (
         <Layout footerColor="black">
@@ -59,7 +65,7 @@ export default function Login() {
                     </div>
                      </form>
                      <div className={styles.flex}>
-                     <a>Forgot Password?</a>
+                     <Link href='/password_reset'>Forgot Password?</Link>
                      <a>Don&apos;t have an account? Sign Up</a>
                      </div>
                 </div>

@@ -1,8 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connectToDatabase from "./database";
-import User from './User';
+import User from './models/User';
 import bcrypt from 'bcrypt';
 import * as Yup from 'yup';
+
+/* Figure out why the database is querying slow. */
 
 const validationSchema = Yup.object().shape({
     name:Yup.string().required(),
@@ -31,7 +33,8 @@ const register = async (req: NextApiRequest, res:NextApiResponse) => {
           return res.status(400).send({ message: 'Passwords do not match'});
         }
       
-        const existingUser = await User.findOne({ email });
+        const options = { maxTimeMS: 60000 };
+        const existingUser = await User.findOne({ email }, null, options);
       
         if (existingUser) {
           return res.status(400).send({ message: 'Email already exists'});
