@@ -4,8 +4,6 @@ import User from './models/User';
 import bcrypt from 'bcrypt';
 import * as Yup from 'yup';
 
-/* Figure out why the database is querying slow. */
-
 const validationSchema = Yup.object().shape({
     name:Yup.string().required(),
     email:Yup.string().email().required(),
