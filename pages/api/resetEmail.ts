@@ -2,40 +2,51 @@ import { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import ResetPassword from "./models/ResetPassword";
-import AWS from 'aws-sdk';
+import Reset from "./models/ResetPassword";
 import dotenv from 'dotenv'
+import connectToDatabase from "./database";
 
-/* figure out why im getting a 500 error */
 dotenv.config();
 
 const secretKey = process.env.RESET_SECRET_KEY as string;
 
-
-const ses = new AWS.SES({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASSWORD,
+  },
 });
 
 const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
+  console.log('hi')
     try {
+   
         const { email } = req.body;
+        
         console.log(email)
+
         if(!email) {
             return res.status(400).send({message: 'Email is required.'})
         }
 
         const token = jwt.sign({ email }, secretKey, {expiresIn:'1h'});
 
-        await ResetPassword.create({
+        await connectToDatabase()
+  
+        const userEmail = new Reset ({
             email,
             token: bcrypt.hashSync(token, 10),
+            createdAt: new Date(),
         });
+
+        await userEmail.save();
+
+        console.log('hi')
 
         const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
         const mailOptions = {
-            from: process.env.SES_EMAIL_ADDRESS as string,
+            from: process.env.GMAIL_USER as string,
             to: email,
             subject: 'Password reset for mld',
             html: `
@@ -46,26 +57,7 @@ const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
             `,
         };
       
-        const sendEmailResult = await ses.sendEmail({
-            Destination: {
-                ToAddresses: [email],
-            },
-            Message: {
-                Body: {
-                  Html: {
-                    Charset: 'UTF-8',
-                    Data: mailOptions.html,
-                  },
-                },
-                Subject: {
-                  Charset: 'UTF-8',
-                  Data: mailOptions.subject,
-                },
-              },
-              Source: mailOptions.from,
-        }).promise();
-          
-        console.log(`Email sent: ${sendEmailResult.MessageId}`);
+        await transporter.sendMail(mailOptions);
 
         res.status(200).json({ message: 'Password reset link has been sent to your email' });
 

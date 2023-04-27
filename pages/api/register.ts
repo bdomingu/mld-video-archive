@@ -31,8 +31,7 @@ const register = async (req: NextApiRequest, res:NextApiResponse) => {
           return res.status(400).send({ message: 'Passwords do not match'});
         }
       
-        const options = { maxTimeMS: 60000 };
-        const existingUser = await User.findOne({ email }, null, options);
+        const existingUser = await User.findOne({ email });
       
         if (existingUser) {
           return res.status(400).send({ message: 'Email already exists'});

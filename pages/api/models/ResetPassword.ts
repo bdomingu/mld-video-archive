@@ -19,4 +19,6 @@ const resetPasswordSchema = new mongoose.Schema ({
 
     });
 
-export default mongoose.model('ResetPassword', resetPasswordSchema);
+const Reset = mongoose.model('ResetPassword', resetPasswordSchema);
+
+export default Reset;

@@ -6,16 +6,21 @@ const resetPassword = () => {
 
     const handleResetRequest = async (e: React.FormEvent<HTMLFormElement>):Promise<void>  => {
         e.preventDefault();
+        
         try {
             const data = {
                 email:emailAddress
             }
 
+            console.log(data)
+
             const response = await axios.post('api/resetEmail', data)
             console.log(response);
             console.log('hi')
+
         } catch (error) {
-            console.error(error);
+            console.log(error);
+            console.log('hi')
         }
 
     }
