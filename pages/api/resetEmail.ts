@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import Reset from "./models/ResetPassword";
-import dotenv from 'dotenv'
+import ResetPassword from "./models/ResetPassword";
+import dotenv from 'dotenv';
 import connectToDatabase from "./database";
 
 dotenv.config();
@@ -19,12 +19,10 @@ const transporter = nodemailer.createTransport({
 });
 
 const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
-  console.log('hi')
+ 
     try {
    
         const { email } = req.body;
-        
-        console.log(email)
 
         if(!email) {
             return res.status(400).send({message: 'Email is required.'})
@@ -34,7 +32,7 @@ const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
 
         await connectToDatabase()
   
-        const userEmail = new Reset ({
+        const userEmail = new ResetPassword ({
             email,
             token: bcrypt.hashSync(token, 10),
             createdAt: new Date(),
@@ -42,9 +40,7 @@ const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
 
         await userEmail.save();
 
-        console.log('hi')
-
-        const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
+        const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset_password?token=${token}`;
         const mailOptions = {
             from: process.env.GMAIL_USER as string,
             to: email,

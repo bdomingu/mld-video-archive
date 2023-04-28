@@ -1,4 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, {Document, Model} from "mongoose";
+
+interface IresetPassword {
+    email: string,
+    token: string,
+    createdAt: Date,
+
+}
+
+export interface IresetPasswordDocument extends IresetPassword, Document {}
+interface IresetPasswordModel extends Model<IresetPasswordDocument> {}
 
 const resetPasswordSchema = new mongoose.Schema ({
         email: {
@@ -19,6 +29,11 @@ const resetPasswordSchema = new mongoose.Schema ({
 
     });
 
-const Reset = mongoose.model('ResetPassword', resetPasswordSchema);
+let ResetPassword: mongoose.Model<IresetPasswordDocument>;
 
-export default Reset;
+if (mongoose.models.ResetPassword) {
+    ResetPassword = mongoose.model<IresetPasswordDocument, IresetPasswordModel>('ResetPassword');
+} else {
+    ResetPassword = mongoose.model<IresetPasswordDocument, IresetPasswordModel>('ResetPassword', resetPasswordSchema )};
+
+export default ResetPassword;

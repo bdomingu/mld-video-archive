@@ -55,7 +55,7 @@ export default function Login() {
                             />
                         <label>Password</label>
                             <input 
-                            type="text"
+                            type="password"
                             value={userPassword}
                             onChange={(e) => setUserPassword(e.target.value)}
                             />
@@ -65,7 +65,7 @@ export default function Login() {
                     </div>
                      </form>
                      <div className={styles.flex}>
-                     <Link href='/password_reset'>Forgot Password?</Link>
+                     <Link href='/forgot_password'>Forgot Password?</Link>
                      <a>Don&apos;t have an account? Sign Up</a>
                      </div>
                 </div>
