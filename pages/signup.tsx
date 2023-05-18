@@ -3,6 +3,7 @@ import styles from './signup.module.css'
 import axios from 'axios';
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 // import { ToolTip, TextField} from '@material-ui-core';
 
 export default function Signup() {
@@ -85,7 +86,7 @@ export default function Signup() {
                     </div>
                      </form>
                      <div className={styles.flex}>
-                     <a>Already have an account? Login</a>
+                     <Link href='/login'>Already have an account? Login</Link>
                      </div>
                 </div>
             </div>

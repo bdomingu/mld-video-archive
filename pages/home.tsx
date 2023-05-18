@@ -2,8 +2,16 @@ import Layout from "@/components/Layout";
 import styles from './home.module.css';
 import Link from "next/link";
 import Videos from '../components/Videos';
+import axios from "axios";
+import { useEffect } from "react";
+// import Cookies from 'js-cookie';
+// import { useRouter } from "next/router";
+// import { useEffect } from "react";
+// import { ifError } from "assert";
 
 export default function Home() {
+   
+
     return (
         <Layout>
             <div className={styles.textContainer}>
@@ -35,3 +43,14 @@ export default function Home() {
     )
  
 }
+
+
+    // videos.map(video => {
+        //     <img>
+        //         video.pictures.base_link
+        //     </img>
+        // })
+
+        // <iframe>
+        //     video.player_embed_url
+        // </iframe>

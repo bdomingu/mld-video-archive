@@ -25,7 +25,7 @@ export default function Login() {
            
             const response = await axios.post('api/login', registeredUser)
             const token = await response.data.token
-            const expirationDate = new Date(Date.now() + 60 * 60 * 1000); 
+            const expirationDate = new Date(Date.now() + 60 * 1000); 
             Cookies.set('token', token, {expires: expirationDate, path: '/'});
             const status = response.status
             if (status === 200){
@@ -66,7 +66,7 @@ export default function Login() {
                      </form>
                      <div className={styles.flex}>
                      <Link href='/forgot_password'>Forgot Password?</Link>
-                     <a>Don&apos;t have an account? Sign Up</a>
+                     <Link href='/signup'>Don&apos;t have an account? Sign Up</Link>
                      </div>
                 </div>
             </div>

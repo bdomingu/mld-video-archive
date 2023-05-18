@@ -1,6 +1,5 @@
 import Nav from './Nav';
 import Footer from './Footer';
-import Cookies from 'js-cookie';
 
 
 type LayoutProps = {
@@ -9,21 +8,17 @@ type LayoutProps = {
 }
 
 const Layout: React.FC<LayoutProps> = ({children, footerColor}) => {
-  const loggedIn = !!Cookies.get('token')
-  console.log(loggedIn)
-   
 
-   
-    return (
+  return (
         <div >
-             <Nav loggedIn={loggedIn}/>
+             <Nav />
             <div style={{flex: 1}}>
               {children}
             </div>
             
             <Footer footerColor={footerColor}/>
         </div>
-    )
+  )
 }
 
 export default Layout;

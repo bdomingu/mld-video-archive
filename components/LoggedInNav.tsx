@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import styles from './Nav.module.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -10,22 +10,14 @@ import Cookies from 'js-cookie';
 import { useRouter } from "next/router";
 
 
-
 config.autoAddCss = false;
 
 
-export default function Nav() {
+
+export default function LoggedInNav() {
     const [showMenu, setShowMenu] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
     const router = useRouter();
-
-
-    useEffect(() => {
-        if(Cookies.get("token")){
-        setLoggedIn(true);
-        }
-      }, [])
-
+      
     const handleClick = () => {
         setShowMenu(!showMenu);
     }
@@ -52,34 +44,20 @@ export default function Nav() {
                 </div>
                
                 <button className={styles.menuButton} onClick={handleClick}>
-                    <span className={styles.hamburgerIcon}>
-                        <FontAwesomeIcon icon={faBars} size='2x'></FontAwesomeIcon>
-                    </span> 
+                    <div className={styles.hamburgerIcon}>
+                        <span><FontAwesomeIcon icon={faBars} size='2x'></FontAwesomeIcon></span> 
+                    </div>
                 </button>
-               
-                {loggedIn ? (
-                    <>
+              
                 <div className={showMenu ? styles.menuListActive : styles.menuList}>
                 <div className={styles.menu}>
-                    <button onClick={handleLogout}>Logout</button>
+                    {/* <button onClick={handleLogout}>Logout</button> */}
                     <Link href='/courseHome'><li>My Courses</li></Link>
                     <Link href='/home'><li>Video Archive</li></Link>
 
                 </div>
                 </div>
-                </> 
-                ) : (
-                    <>
-                    <div className={showMenu ? styles.menuListActive : styles.menuList}>
-                    <div className={styles.menu}>
-                        <Link href='/login'><li>Login</li></Link>
-                        <Link href='/signup'><li>Signup</li></Link>
-                    </div>
-                    </div>
-                    </>
-                )
-                }
-           
+             
             </div>
             
         </nav>
