@@ -4,10 +4,6 @@ import Link from "next/link";
 import Videos from '../components/Videos';
 import axios from "axios";
 import { useEffect } from "react";
-// import Cookies from 'js-cookie';
-// import { useRouter } from "next/router";
-// import { useEffect } from "react";
-// import { ifError } from "assert";
 
 export default function Home() {
    

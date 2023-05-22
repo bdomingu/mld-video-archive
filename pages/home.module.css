@@ -27,7 +27,7 @@
 
 .videoContainer {
     background-color: #121212;
-    height: 1243px;
+    min-height: fit-content;
 }
 
 .years{

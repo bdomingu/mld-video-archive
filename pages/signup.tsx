@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import styles from './signup.module.css'
+import styles from './signup.module.css';
 import axios from 'axios';
 import { useState } from "react";
 import { useRouter } from "next/router";

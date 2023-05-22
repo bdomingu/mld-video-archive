@@ -1,9 +1,12 @@
 import styles from './Videos.module.css';
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import { useRouter } from 'next/router';
+
 
 export default function Videos() {
     const [videos, setVideos] = useState([])
+    const router = useRouter();
 
     useEffect(() => {
 
@@ -20,73 +23,33 @@ export default function Videos() {
         }
         fetchVideos();
     }, [])
+
+    const handleThumbnailClick = (embedUrl: string) => {
+        router.push(`/video?embedUrl=${encodeURIComponent(embedUrl)}`)
+    }
     
  
     return (
         <div className={styles.container}>
-                <div>
-                <div className={styles.thumbnail}>
-                {videos.map((video: any) => {
-                return (
+                {videos.map((video: any) =>  {
+                    return (
                     <>
-                    <iframe src={video.player_embed_url}></iframe>
+                    <div className={styles.card} key={video.id}>
+                    <div className={styles.thumbnail}>
+                        <img 
+                        key={video.id}
+                        src={video.pictures.base_link}
+                        onClick={() => handleThumbnailClick(video.player_embed_url)}
+                        />
+                    </div>
+                    <div className={styles.content}>
+                        <h3>Title</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Dictum lectus.</p>
+                    </div>
+                    </div>
                     </>
-                )
-                })}
-                </div>
-                <div className={styles.content}>
-                    <h3>Title</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur. Dictum lectus.</p>
-                </div>
-                </div>
-                
-               
-                <div>
-                <div className={styles.thumbnail}>
-                </div>
-                <div className={styles.content}>
-                    <h3>Title</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur. Dictum lectus.</p>
-                </div>
-                </div>
-               
-                <div>
-                <div className={styles.thumbnail}>
-                </div>
-                <div className={styles.content}>
-                    <h3>Title</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur. Dictum lectus.</p>
-                </div>
-                </div>
-
-                <div>
-                <div className={styles.thumbnail}>
-                </div>
-                <div className={styles.content}>
-                    <h3>Title</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur. Dictum lectus.</p>
-                </div>
-                </div>
-
-                <div>
-                <div className={styles.thumbnail}>
-                </div>
-                <div className={styles.content}>
-                    <h3>Title</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur. Dictum lectus.</p>
-                </div>
-                </div>
-
-                <div>
-                <div className={styles.thumbnail}>
-                </div>
-                <div className={styles.content}>
-                    <h3>Title</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur. Dictum lectus.</p>
-                </div>
-                </div>
-                
-           
+                    )
+                })}    
         </div>
     )
 }
