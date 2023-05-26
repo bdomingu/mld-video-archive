@@ -13,7 +13,7 @@ export default function Videos() {
         const fetchVideos = async () => {
             try {
     
-                const response = await axios.get("/api/vimeo")
+                const response = await axios.get("/api/vimeoCourse")
                 const videos = await response.data;
                 console.log(videos);
                 setVideos(videos);
@@ -34,10 +34,10 @@ export default function Videos() {
                 {videos.map((video: any) =>  {
                     return (
                     <>
-                    <div className={styles.card} key={video.id}>
+                    <div className={styles.card} >
                     <div className={styles.thumbnail}>
                         <img 
-                        key={video.id}
+                        key={video.resource_key}
                         src={video.pictures.base_link}
                         onClick={() => handleThumbnailClick(video.player_embed_url)}
                         />

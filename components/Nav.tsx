@@ -18,7 +18,7 @@ export default function Nav() {
     const [showMenu, setShowMenu] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const router = useRouter();
-
+   
 
     useEffect(() => {
         if(Cookies.get("token")){

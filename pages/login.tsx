@@ -24,8 +24,9 @@ export default function Login() {
             }
            
             const response = await axios.post('api/login', registeredUser)
+            console.log(response.data)
             const token = await response.data.token
-            const expirationDate = new Date(Date.now() + 60 * 1000); 
+            const expirationDate = new Date(Date.now() + 60 * 60 * 1000); 
             Cookies.set('token', token, {expires: expirationDate, path: '/'});
             const status = response.status
             if (status === 200){

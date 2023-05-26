@@ -15,10 +15,8 @@ export default function VideoPage() {
             className={styles.videoIframe}
             src={embedUrl}
             allow="autoplay; fullscreen"
-             allowFullScreen
-            
+            allowFullScreen
             >
-
             </iframe>
         </div>
         </Layout>

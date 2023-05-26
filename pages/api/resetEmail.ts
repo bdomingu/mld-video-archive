@@ -21,7 +21,6 @@ const transporter = nodemailer.createTransport({
 const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
  
     try {
-   
         const { email } = req.body;
 
         if(!email) {
@@ -37,7 +36,7 @@ const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
             token: bcrypt.hashSync(token, 10),
             createdAt: new Date(),
         });
-
+        console.log(userEmail)
         await userEmail.save();
 
         const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset_password?token=${token}`;

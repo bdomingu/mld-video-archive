@@ -32,6 +32,7 @@ const resetPassword = async (req:NextApiRequest, res:NextApiResponse) => {
         const { db } = await connectToDatabase();
         const resetPasswords = db.collection('resetpasswords');
         const resetPassword = await resetPasswords.findOne({ email });
+        console.log(resetPassword)
 
             if (!resetPassword) {
                 res.status(400).send({message: 'Invalid password reset token.'});

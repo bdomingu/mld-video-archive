@@ -1,5 +1,6 @@
-import Layout from '@/components/Layout'
+import Layout from '@/components/Layout';
 import styles from './index.module.css';
+import Link from 'next/link';
 
 
 export default function Home() {
@@ -18,7 +19,10 @@ export default function Home() {
               scelerisque sagittis. Consectetur nibh fusce nibh platea et. Odio mattis at faucibus velit.
                Vitae justo quis ornare vivamus ornare. Nulla neque massa ultrices non.</p>
             <div className={styles.button}>
-            <button>Get Started</button>
+              <Link href='/login' passHref >
+              <button>Get Started</button>
+              </Link>
+            
             </div>
           </div>
         </div>

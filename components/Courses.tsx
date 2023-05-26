@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './Courses.module.css';
 
 export default function Courses() {
@@ -13,7 +14,9 @@ export default function Courses() {
                 pretium sagittis eget. Sollicitudin feugiat iaculis justo lacus bibendum.
                  Non in eu est nec laoreet in dignissim</p>
                  <div className={styles.learnMore}>
+                <Link href='/courseView' passHref>
                 <button>Learn Now</button>
+                </Link>
                 </div>
             </div>
         </div>

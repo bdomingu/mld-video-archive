@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
 interface Database {
     db: mongoose.Connection;
   }

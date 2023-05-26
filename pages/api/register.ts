@@ -16,7 +16,6 @@ const validationSchema = Yup.object().shape({
 
 const register = async (req: NextApiRequest, res:NextApiResponse) => {
     try {
-        await connectToDatabase();
         const { name, email, password, confirmPassword } = req.body;
 
         await validationSchema.validate({name, email, password, confirmPassword})
@@ -30,13 +29,14 @@ const register = async (req: NextApiRequest, res:NextApiResponse) => {
         if (password !== confirmPassword) {
           return res.status(400).send({ message: 'Passwords do not match'});
         }
-      
-        const existingUser = await User.findOne({ email });
+        
+        const { db } = await connectToDatabase();
+        const users = db.collection('users');
+        const existingUser = await users.findOne({ email });
       
         if (existingUser) {
           return res.status(400).send({ message: 'Email already exists'});
         }
-      
       
         const user = new User({
           name, 

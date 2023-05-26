@@ -1,6 +1,6 @@
 .textContainer {
     background-color: #3A3A3A;
-    height: 282px;
+    min-height: fit-content;
     padding-top: 1px;   
 }
 
@@ -75,7 +75,7 @@
 
 @media only screen and (max-width:1044px){
     .videoContainer {
-        height: 1743px;
+        min-height: fit-content;
     }
 }
 
@@ -92,7 +92,7 @@
 
 @media only screen and (max-width:768px) {
     .textContainer {
-        height: 362px; 
+        min-height: fit-content; 
     }
     
     .textContainer p{
@@ -120,14 +120,14 @@
 
 @media only screen and (max-width:679px) {
     .videoContainer {
-        height: 3163px;
+        min-height: fit-content;
     }
 }
 
 
 @media only screen and (max-width:468px) {
     .textContainer {
-        height: 492px; 
+        min-height: fit-content; 
     }
 
     .textContainer h1 {
@@ -148,7 +148,7 @@
 
 @media only screen and (max-width:350px) {
     .videoContainer {
-        height: 2953px; 
+        min-height: fit-content; 
     }
 
 

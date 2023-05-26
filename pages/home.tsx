@@ -2,10 +2,10 @@ import Layout from "@/components/Layout";
 import styles from './home.module.css';
 import Link from "next/link";
 import Videos from '../components/Videos';
-import axios from "axios";
-import { useEffect } from "react";
+import withAuth from "@/components/ProtectedRoute";
 
-export default function Home() {
+
+ const Home = () => {
    
 
     return (
@@ -13,10 +13,10 @@ export default function Home() {
             <div className={styles.textContainer}>
                 <h1>Lorem Ipsum Dolor Sit Amet</h1>
                 <p>Lorem ipsum dolor sit amet consectetur. Lorem facilisis iaculis
-                pretium sagittis eget. Sollicitudin feugiat iaculis justo lacus bibendum. 
-                Non in eu est nec laoreet in dignissim scelerisque sagittis. Consectetur nibh 
-                fusce nibh platea et. Odio mattis at faucibus velit. Vitae justo quis ornare 
-                vivamus ornare. Nulla neque massa ultrices non.</p>
+                    pretium sagittis eget. Sollicitudin feugiat iaculis justo lacus bibendum.
+                    Non in eu est nec laoreet in dignissim scelerisque sagittis. Consectetur nibh
+                    fusce nibh platea et. Odio mattis at faucibus velit. Vitae justo quis ornare
+                    vivamus ornare. Nulla neque massa ultrices non.</p>
             </div>
             <div className={styles.videoContainer}>
                 <div className={styles.years}>
@@ -33,20 +33,12 @@ export default function Home() {
                     <li>Q3</li>
                     <li>Q4</li>
                 </div>
-                <Videos/>
+                <Videos />
             </div>
         </Layout>
+       
     )
  
 }
 
-
-    // videos.map(video => {
-        //     <img>
-        //         video.pictures.base_link
-        //     </img>
-        // })
-
-        // <iframe>
-        //     video.player_embed_url
-        // </iframe>
+export default withAuth(Home);

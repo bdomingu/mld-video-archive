@@ -44,6 +44,15 @@
     
 }
 
+.progressContainer span {
+    font-family: 'Zilla Slab', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25em;
+    text-align: center;
+    color: #146DA6;
+}
+
 .accordionContainer {
     background-color: #121212;
     height:auto;
@@ -79,6 +88,23 @@
     font-weight: 400;
     font-size: 1.125em;
     color: #EAEAEA;
+}
+
+.markComplete {
+    background-color: #272727;
+    border: 1px solid #740000;
+    width: 174px;
+    height: 37px;
+    font-family: 'Zilla Slab', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25em;
+    text-align: center;
+    text-transform: uppercase;
+    color: #EAEAEA;
+    position: relative;
+    top:-65px;
+    right:-120px;
 }
 
 @media only screen and (max-width:867px) {

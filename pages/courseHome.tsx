@@ -1,8 +1,9 @@
 import Layout from '@/components/Layout';
 import styles from './courseHome.module.css';
 import Courses from '../components/Courses';
+import withAuth from '@/components/ProtectedRoute';
 
-export default function CourseHome() {
+const CourseHome = () => {
     return (
         <Layout>
             <div className={styles.textContainer}>
@@ -18,3 +19,5 @@ export default function CourseHome() {
         </Layout>
     )
 }
+
+export default withAuth(CourseHome);
