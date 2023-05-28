@@ -11,12 +11,10 @@ import withAuth from "@/components/ProtectedRoute";
     return (
         <Layout>
             <div className={styles.textContainer}>
-                <h1>Lorem Ipsum Dolor Sit Amet</h1>
-                <p>Lorem ipsum dolor sit amet consectetur. Lorem facilisis iaculis
-                    pretium sagittis eget. Sollicitudin feugiat iaculis justo lacus bibendum.
-                    Non in eu est nec laoreet in dignissim scelerisque sagittis. Consectetur nibh
-                    fusce nibh platea et. Odio mattis at faucibus velit. Vitae justo quis ornare
-                    vivamus ornare. Nulla neque massa ultrices non.</p>
+                <h1>My Courses</h1>
+                <p>Lorem ipsum dolor sit amet consectetur. Lorem facilisis iaculis 
+                 pretium sagittis eget. Sollicitudin feugiat iaculis justo lacus 
+                bibendum. Non in eu est nec laoreet in dignissim.</p>
             </div>
             <div className={styles.videoContainer}>
                 <div className={styles.years}>

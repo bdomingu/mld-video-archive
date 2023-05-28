@@ -1,5 +1,6 @@
 .accordion {
     margin-bottom: 1px;
+    position: relative;
   }
   
   .accordionTitle {
@@ -42,7 +43,27 @@
     display: block;
   }
   
- 
+ .plus {
+  position:absolute;
+  right: 180px;
+ }
     
-      
-   
+ @media only screen and (max-width:1200px) {
+  .plus {
+    position:absolute;
+    right: 160px;
+   }
+ }
+
+ @media only screen and (max-width:1063px) {
+
+ .plus {
+  right: 140px;
+ }
+}
+
+@media only screen and (max-width:999px) {
+  .plus {
+    right: 130px;
+   }
+  }

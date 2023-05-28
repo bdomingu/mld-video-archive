@@ -102,6 +102,9 @@
         margin: auto;
     }
     
+    .learnMore button {
+        margin-left: 100px; 
+    }
 }
 
 @media only screen and (max-width:420px) {

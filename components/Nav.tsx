@@ -63,7 +63,7 @@ export default function Nav() {
                 <div className={styles.menu}>
                     <button onClick={handleLogout}>Logout</button>
                     <Link href='/courseHome'><li>My Courses</li></Link>
-                    <Link href='/home'><li>Video Archive</li></Link>
+                    {/* <Link href='/home'><li>Video Archive</li></Link> */}
 
                 </div>
                 </div>
@@ -73,7 +73,7 @@ export default function Nav() {
                     <div className={showMenu ? styles.menuListActive : styles.menuList}>
                     <div className={styles.menu}>
                         <Link href='/login'><li>Login</li></Link>
-                        <Link href='/signup'><li>Signup</li></Link>
+                        {/* <Link href='/signup'><li>Signup</li></Link> */}
                     </div>
                     </div>
                     </>

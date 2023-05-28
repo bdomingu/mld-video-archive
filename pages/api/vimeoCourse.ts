@@ -6,7 +6,7 @@ export default function handler(req:NextApiRequest, res:NextApiResponse) {
   
 const fetchVideos = async () => {
     try {
-    const response = await axios.get('https://api.vimeo.com/me/projects/16080523/videos', {
+    const response = await axios.get('https://api.vimeo.com/me/projects/', {
       headers: {
         Authorization: `Bearer ${process.env.VIMEO_ACCESS_TOKEN}`, 
       }

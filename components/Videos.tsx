@@ -31,7 +31,7 @@ export default function Videos() {
  
     return (
         <div className={styles.container}>
-                {videos.map((video: any) =>  {
+                {/* {videos.map((video: any) =>  {
                     return (
                     <>
                     <div className={styles.card} >
@@ -49,7 +49,7 @@ export default function Videos() {
                     </div>
                     </>
                     )
-                })}    
+                })}     */}
         </div>
     )
 }

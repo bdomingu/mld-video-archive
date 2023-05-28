@@ -30,7 +30,7 @@ export default function Login() {
             Cookies.set('token', token, {expires: expirationDate, path: '/'});
             const status = response.status
             if (status === 200){
-                router.push('/home')
+                router.push('/courseHome')
             }
         } catch (error:any) {
             setError(error.response.data.message);

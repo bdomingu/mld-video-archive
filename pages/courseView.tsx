@@ -24,6 +24,7 @@ const CourseView = () => {
                     }
                 })
                 const videos = await response.data;
+                console.log(videos)
                 setVideos(videos);
             } catch(error) {
                 console.error(error);
