@@ -6,15 +6,20 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import withAuth from "@/components/ProtectedRoute";
 
+
 const CourseView = () => {
   const [videos, setVideos] = useState([]);
   const [token, setToken] = useState(Cookies.get("token"));
-  const [courseProgress, setCourseProgress] = useState([]);
+  const [courseProgress, setCourseProgress] = useState<string[]>([]);;
   const [progressValue, setProgressValue] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
+    
     const saveFetchedVideos = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get("/api/vimeoLibrary", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -25,12 +30,14 @@ const CourseView = () => {
         setVideos(videos);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false)
       }
     };
     saveFetchedVideos();
   }, []);
 
-  const markCompleted = async (videoId: String) => {
+  const markCompleted = async (videoId: string) => {
     const body = {
       videoId: videoId,
       completed: true,
@@ -44,6 +51,8 @@ const CourseView = () => {
     });
     const completedVideos = response.data;
     console.log(completedVideos);
+    setCourseProgress([...courseProgress, videoId]);
+
   };
 
   useEffect(() => {
@@ -63,8 +72,6 @@ const CourseView = () => {
   useEffect(() => {
     const setProgress = () => {
       const calculatedProgress = Math.round((courseProgress.length / 18) * 100);
-      console.log("The array length" + courseProgress.length);
-      console.log("The calculation" + calculatedProgress);
       setProgressValue(calculatedProgress);
     };
     setProgress();
@@ -89,7 +96,12 @@ const CourseView = () => {
             Course Progress: <span>{progressValue}%</span>
           </h3>
         </div>
-        <div className={styles.accordionContainer}>
+        {isLoading ? (
+          <div className={styles.loading}>
+            Loading...
+          </div>
+        ) : (
+          <div className={styles.accordionContainer}>
           {videos.map((video: any) => {
             const videoName: string = video.name.slice(2).split('_').join(' ');
             return (
@@ -120,6 +132,8 @@ const CourseView = () => {
             );
           })}
         </div>
+        )}
+      
       </>
     </Layout>
   );

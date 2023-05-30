@@ -26,8 +26,11 @@ export default function Login() {
             const response = await axios.post('api/login', registeredUser)
             console.log(response.data)
             const token = await response.data.token
+            const user = await response.data.user.name
+            console.log(user)
             const expirationDate = new Date(Date.now() + 60 * 60 * 1000); 
             Cookies.set('token', token, {expires: expirationDate, path: '/'});
+            Cookies.set('user', user, {expires: expirationDate, path: '/'});
             const status = response.status
             if (status === 200){
                 router.push('/courseHome')
@@ -67,7 +70,7 @@ export default function Login() {
                      </form>
                      <div className={styles.flex}>
                      <Link href='/forgot_password'>Forgot Password?</Link>
-                     <Link href='/signup'>Don&apos;t have an account? Sign Up</Link>
+                     {/* <Link href='/signup'>Don&apos;t have an account? Sign Up</Link> */}
                      </div>
                 </div>
             </div>

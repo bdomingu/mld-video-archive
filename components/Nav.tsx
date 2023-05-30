@@ -23,7 +23,7 @@ export default function Nav() {
     useEffect(() => {
         if(Cookies.get("token")){
         setLoggedIn(true);
-        }
+        } 
       }, [])
 
     const handleClick = () => {
@@ -62,7 +62,7 @@ export default function Nav() {
                 <div className={showMenu ? styles.menuListActive : styles.menuList}>
                 <div className={styles.menu}>
                     <button onClick={handleLogout}>Logout</button>
-                    <Link href='/courseHome'><li>My Courses</li></Link>
+                    <Link href='/courseHome' className={styles.myCourses}><span >My Courses</span></Link>
                     {/* <Link href='/home'><li>Video Archive</li></Link> */}
 
                 </div>
@@ -72,7 +72,7 @@ export default function Nav() {
                     <>
                     <div className={showMenu ? styles.menuListActive : styles.menuList}>
                     <div className={styles.menu}>
-                        <Link href='/login'><li>Login</li></Link>
+                        <Link href='/login' className={styles.myCourses}><span>Login</span></Link>
                         {/* <Link href='/signup'><li>Signup</li></Link> */}
                     </div>
                     </div>

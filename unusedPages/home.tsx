@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import styles from './home.module.css';
 import Link from "next/link";
-import Videos from '../components/Videos';
+import Videos from '../unusedComponents/Videos';
 import withAuth from "@/components/ProtectedRoute";
 
 

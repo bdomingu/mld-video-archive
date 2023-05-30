@@ -48,11 +48,11 @@
     margin-right: 34px;
     margin-top: 52px;
     margin-left: auto;
-    color: #EAEAEA;
 }
 
 .socials span {
     padding-left: 20px;
+    color: #EAEAEA;
 }
 
 @media only screen and (max-width: 768px) {
