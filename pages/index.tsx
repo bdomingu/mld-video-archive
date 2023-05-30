@@ -1,8 +1,20 @@
 import Layout from "@/components/Layout";
 import styles from "./index.module.css";
 import Link from "next/link";
+import { useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const jwt = Cookies.get('token');
+    if (jwt) {
+      router.replace('/courseHome'); 
+    }
+  }, []);
+
   return (
     <div>
       <Layout>

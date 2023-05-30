@@ -10,7 +10,7 @@ import Video from "./models/Videos";
 export default async function fetchVideos(req:NextApiRequest, res:NextApiResponse) {
   const secret = process.env.SECRET_KEY as string;
   try {
-    const response = await axios.get('https://api.vimeo.com/me/projects/16080523/videos', {
+    const response = await axios.get('https://api.vimeo.com/me/projects/16080523/videos?sort=alphabetical', {
       headers: {
         Authorization: `Bearer ${process.env.VIMEO_ACCESS_TOKEN}`, 
       }
@@ -45,6 +45,7 @@ export default async function fetchVideos(req:NextApiRequest, res:NextApiRespons
    }
     res.status(response.status).json(response.data.data);
   } catch (error) {
+    console.error(error)
     res.status(500).json({ error: 'An error occurred' });
   }
 }

@@ -110,6 +110,14 @@
     margin-left: 20px;
 }
 
+.loading {
+    background-color: #3A3A3A;
+    font-size: 2em;
+    font-family: 'Zilla Slab', serif;
+    font-weight: 500;
+    color: #EAEAEA;
+}
+
 @media only screen and (max-width:867px) {
     .textContainer {
         
@@ -135,7 +143,6 @@
     }
 
     .textContainer p{
-    
         width: 75%;
        
     }

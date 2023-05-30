@@ -18,7 +18,7 @@
     font-family: 'Zilla Slab';
     font-style: normal;
     font-weight: 400;
-    font-size: 2em;
+    font-size: 1.8em;
     color: #EAEAEA;
   }
 
@@ -64,6 +64,52 @@
 
 @media only screen and (max-width:999px) {
   .plus {
-    right: 130px;
+    right: 120px;
    }
   }
+
+  @media only screen and (max-width:765px) {
+    .plus {
+      right: 110px;
+     }
+
+     .accordionTitle {
+      font-size: 1.2em;
+
+     }
+    }
+
+    @media only screen and (max-width:680px) {
+      .plus {
+        right: 90px;
+       }
+      }
+
+      @media only screen and (max-width:615px) {
+        .plus {
+          right: 80px;
+         }
+        }
+
+        @media only screen and (max-width:530px) {
+          .plus {
+            right: 70px;
+           }
+
+           .accordionTitle {
+            font-size: 1em;
+      
+           }
+        }
+
+
+        @media only screen and (max-width:450px) {
+          .plus {
+            right: 60px;
+           }
+
+           .accordionTitle {
+            font-size: 1em;
+      
+           }
+        }
