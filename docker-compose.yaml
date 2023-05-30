@@ -15,4 +15,4 @@ services:
           - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
           - MONGO_INITDB_ROOT_PASSWORD=${SECRET_KEY}
     volumes:
-      - './volumes/mongo:/data/sda'
+      - './volumes/mongo:/mnt/disks/mongodb'
