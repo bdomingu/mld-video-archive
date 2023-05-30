@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import axios from 'axios';
-import authenticateToken from "./authenticate";
+import authenticateToken from "../pages/api/authenticate";
 
 export default function handler(req:NextApiRequest, res:NextApiResponse) {
   

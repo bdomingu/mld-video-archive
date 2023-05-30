@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import { serialize } from 'cookie';
 import axios from "axios";
-import fetchVideos from "./vimeoCourse";
+import fetchVideos from "../../unusedPages/vimeoCourse";
 
 
 
