@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const resetPassword = () => {
+const ResetPassword = () => {
     const [emailAddress, setEmailAddress] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
@@ -52,4 +52,4 @@ const resetPassword = () => {
     )
 }
 
-export default resetPassword;
+export default ResetPassword;

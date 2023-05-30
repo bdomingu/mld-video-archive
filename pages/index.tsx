@@ -13,7 +13,7 @@ export default function Home() {
     if (jwt) {
       router.replace('/courseHome'); 
     }
-  }, []);
+  }, [router]);
 
   return (
     <div>

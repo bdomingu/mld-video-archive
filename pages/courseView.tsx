@@ -35,7 +35,7 @@ const CourseView = () => {
       }
     };
     saveFetchedVideos();
-  }, []);
+  }, [token]);
 
   const markCompleted = async (videoId: string) => {
     const body = {
@@ -67,7 +67,7 @@ const CourseView = () => {
       setCourseProgress(courseProgress);
     };
     fetchCourseProgress();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     const setProgress = () => {

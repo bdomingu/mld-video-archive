@@ -12,7 +12,7 @@ const withAuth = <P extends object>(WrappedComponent: React.ComponentType<P>): R
       if (!token) {
         router.push('/login');
       }
-    }, []);
+    }, [router]);
 
     return <WrappedComponent {...props} />;
   };

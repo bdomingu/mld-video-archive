@@ -19,7 +19,7 @@ const CourseHome = () => {
     if (!jwt) {
       router.replace('/'); 
     }
-  }, []);
+  }, [router]);
 
 
   const splitName = (user: string) => {
