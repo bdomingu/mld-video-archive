@@ -43,11 +43,12 @@ const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
         const mailOptions = {
             from: process.env.GMAIL_USER as string,
             to: email,
-            subject: 'Password reset for mld',
+            subject: '[MLD Academy] Please reset your password',
             html: `
-              <p>You recently requested to reset your password for your Next.js app account.</p>
+              <p>You recently requested to reset your password for Modern Life Dating Academy.</p>
               <p>Click the link below to reset your password:</p>
               <a href="${resetUrl}">${resetUrl}</a>
+              <p>If you do not use this link within 1 hour, it will expire.</p>
               <p>If you did not request a password reset, please ignore this email.</p>
             `,
         };

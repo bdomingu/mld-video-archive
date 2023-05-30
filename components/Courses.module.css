@@ -108,7 +108,7 @@
     }
     
     .learnMore button {
-        margin-left: 100px; 
+        margin-left: 120px; 
     }
 }
 
@@ -132,5 +132,9 @@
     .content p {
         font-size: 1em;
        
+    }
+
+    .learnMore button {
+        margin-left: 60px; 
     }
 }

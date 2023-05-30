@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
+import styles from './forgot_password.module.css'
+import { useRouter } from 'next/router';
 
 const ResetPassword = () => {
     const [emailAddress, setEmailAddress] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
+    const router = useRouter();
 
     const handleResetRequest = async (e: React.FormEvent<HTMLFormElement>):Promise<void>  => {
         e.preventDefault();
@@ -25,30 +28,56 @@ const ResetPassword = () => {
 
     }
 
+    const returnToSignIn = () => {
+        router.push('/login')
+    }
+
     return (
-        <div>
-            {success ? (
-            <>
-            <p>Check your email for a link to reset your password. If it doesn&apos;t appear 
-                within a few minutes, check your spam folder.</p> 
-            </> ) : (
-                <>
-                 <p>Enter your user account's email address and we will send you a password
-                 reset link.</p>
-                <form  onSubmit={(e) => void handleResetRequest(e)}>
-                 <input
-                placeholder="Enter your email address"
-                value={emailAddress}
-                onChange={(e) => setEmailAddress(e.target.value)}
-                name="emailAddress"
-                />
-            <button type='submit'>Send</button>
-            <p>{error}</p>
-            </form>
-                </>
-            )}
-       
+        <>
+        <div className={styles.container}>
+        <div className={styles.logoContainer}>
+            <img className={styles.logo} src='/images/image8.png'/>
         </div>
+        <div className={styles.textContainer}>
+            <h1>Reset Password</h1>
+        </div>
+        </div>
+       
+        <div>
+                {success ? (
+                    <>
+                    <div className={styles.formContainer}>
+                        <div className={styles.successFlex}>
+                        <p>Check your email for a link to reset your password. If it doesn&apos;t appear
+                            within a few minutes, check your spam folder.</p>
+                         <button className={styles.button} onClick={() => returnToSignIn()}>Return to sign in</button>
+                         </div>
+                    </div>
+                    </>) : (
+                    <>
+                    <div className={styles.formContainer}>
+                        <p>Enter your user account's email address and we will send you a password
+                            reset link.</p>
+                       
+                        <form onSubmit={(e) => void handleResetRequest(e)}>
+                        <div className={styles.flex}>
+                            <input
+                                className={styles.emailInput}
+                                placeholder="Enter your email address"
+                                value={emailAddress}
+                                onChange={(e) => setEmailAddress(e.target.value)}
+                                name="emailAddress" />
+                            <button className={styles.button} type='submit'>Send password reset email</button>
+                        </div>
+                            <p>{error}</p>
+                        </form>
+                        
+                    </div>
+                    </>
+                )}
+
+            </div>
+            </>
     )
 }
 

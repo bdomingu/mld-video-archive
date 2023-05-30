@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import styles from './reset_password.module.css'
 
 const ResetPasswordPage = () => {
     const [newPassword, setNewPassword] = useState('');
@@ -31,26 +32,38 @@ const ResetPasswordPage = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={(e) => void handleResetPassword(e)}>
-                <label>Password</label>
-                    <input
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    />
-                <label>Confirm Password</label>
-                    <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                <p>Make sure it's at least 8 characters including an uppercase letter, a lowercase
-                letter, one number, and one special character.</p>
-                <p>{error}</p>
-                <button type="submit">Change Password</button>
-            </form>
+        <><div className={styles.container}>
+            <div className={styles.logoContainer}>
+                <img className={styles.logo} src='/images/image8.png' />
+            </div>
+            <div className={styles.textContainer}>
+                <h1>Reset Password</h1>
+            </div>
         </div>
+            <div className={styles.formContainer}>
+                <form  className={styles.form} onSubmit={(e) => void handleResetPassword(e)}>
+                <div className={styles.inputContainer}>
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)} />
+                    <label>Confirm Password</label>
+                    <input
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <button 
+                    className={styles.button}
+                    type="submit"
+                    >Change Password</button>
+                    </div>
+                    <p>Make sure it's at least 8 characters including an uppercase letter, a lowercase
+                        letter, one number, and one special character.</p>
+                    <p>{error}</p>
+                </form>
+        </div>
+        </>
     )
 }
 
