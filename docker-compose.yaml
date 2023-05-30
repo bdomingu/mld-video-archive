@@ -1,0 +1,18 @@
+version: "2"
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    command: [--auth]
+    environment:
+          - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
+          - MONGO_INITDB_ROOT_PASSWORD=${SECRET_KEY}
+    volumes:
+      - './volumes/mongo:/data/sda'
