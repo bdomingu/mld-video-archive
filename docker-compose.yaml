@@ -3,7 +3,17 @@ services:
   web:
     build: .
     ports:
-      - "3000:443"
+      - "3000:3000"
+    environment:
+          - VIMEO_ACCESS_TOKEN=${VIMEO_ACCESS_TOKEN}
+          - VIMEO_CLIENT_ID=${VIMEO_CLIENT_ID}
+          - VIMEO_CLIENT_SECRET=${VIMEO_CLIENT_SECRET}
+          - MONGODB_URI=${MONGODB_URI}
+          - RESET_SECRET_KEY=${RESET_SECRET_KEY}
+          - GMAIL_USER=${GMAIL_USER}
+          - GMAIL_PASSWORD=${GMAIL_PASSWORD}
+          - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+          - SECRET_KEY=${SECRET_KEY}
     depends_on:
       - mongo
   mongo:
@@ -15,4 +25,4 @@ services:
           - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
           - MONGO_INITDB_ROOT_PASSWORD=${SECRET_KEY}
     volumes:
-      - './volumes/mongo:/mnt/disks/mongodb'
+      - '/mnt/disks/mongodb:/data/db'
