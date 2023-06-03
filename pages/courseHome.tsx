@@ -24,10 +24,10 @@ const CourseHome = () => {
 
   const splitName = (user: string) => {
     const userName = user.split(' ')
-    if (userName[userName.length - 1].endsWith('s')) {
-      return <>{userName[0]}'s</>;
-    } else {
+    if (userName[0].endsWith('s')) {
       return <>{userName[0]}'</>;
+    } else {
+      return <>{userName[0]}'s</>;
     }
     
   }
