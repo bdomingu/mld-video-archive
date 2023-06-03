@@ -2,14 +2,14 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-bottom: -20px;
+    margin-bottom: -10px;
 }
 
 .image {
     background-color: #868686;
     width: 231px;
     height: 227px;
-    margin-top:70px;
+    margin-top:50px;
     background-image: url('../public/images/harem.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -20,7 +20,7 @@
     background-color: #121212;
     width: 901px;
     height: 227px;
-    margin-top: 70px;
+    margin-top: 50px;
 }
 
 .content h1 {
