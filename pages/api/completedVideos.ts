@@ -16,7 +16,6 @@ const markComplete = async (req:NextApiRequest, res:NextApiResponse) => {
     const token: any = authHeader && authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, secret) as JwtPayload; 
     const userId = decodedToken.userId;
-    console.log(userId)
 
     const { db } = await connectToDatabase();
     const videos = db.collection('videos');

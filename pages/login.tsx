@@ -24,10 +24,10 @@ export default function Login() {
             }
            
             const response = await axios.post('api/login', registeredUser)
-            console.log(response.data)
+            
             const token = await response.data.token
             const user = await response.data.user.name
-            console.log(user)
+            
             const expirationDate = new Date(Date.now() + 60 * 60 * 1000); 
             Cookies.set('token', token, {expires: expirationDate, path: '/'});
             Cookies.set('user', user, {expires: expirationDate, path: '/'});

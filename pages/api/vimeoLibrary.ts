@@ -26,7 +26,6 @@ export default async function fetchVideos(req:NextApiRequest, res:NextApiRespons
     const { db } = await connectToDatabase();
     const dbVideos = db.collection('videos');
     const existingVideos = await dbVideos.findOne({ userId });
-    // console.log(existingVideos)
     if(existingVideos === null || !existingVideos.userId) {
       videos.forEach((video:any) => {
 

@@ -55,7 +55,6 @@ const login = async (req:NextApiRequest, res:NextApiResponse) => {
 
       const token = jwt.sign({ userId: user._id }, secret, {expiresIn: '1h'});
       setTokenCookieMiddleware(res, token);
-      console.log(token)
       return res.status(200).json({token, user, message: 'Logged in successfully'})
       
 
