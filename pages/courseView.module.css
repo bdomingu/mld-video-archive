@@ -116,6 +116,7 @@
     font-family: 'Zilla Slab', serif;
     font-weight: 500;
     color: #EAEAEA;
+    text-align: center;
 }
 
 @media only screen and (max-width:867px) {

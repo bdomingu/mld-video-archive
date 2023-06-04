@@ -5,12 +5,14 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import withAuth from "@/components/ProtectedRoute";
+import { Loading } from '@nextui-org/react';
+
 
 
 const CourseView = () => {
   const [videos, setVideos] = useState([]);
+  const [completedVideos, setCompletedVideos] = useState<string[]>([]);
   const [token, setToken] = useState(Cookies.get("token"));
-  const [courseProgress, setCourseProgress] = useState<string[]>([]);;
   const [progressValue, setProgressValue] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -26,7 +28,6 @@ const CourseView = () => {
           },
         });
         const videos = await response.data;
-        console.log(videos);
         setVideos(videos);
       } catch (error) {
         console.error(error);
@@ -46,15 +47,16 @@ const CourseView = () => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
+
     const response = await axios.patch("/api/completedVideos/", body, {
       headers,
     });
-    const completedVideos = response.data;
-    console.log(completedVideos);
-    setCourseProgress([...courseProgress, videoId]);
+    const completedVideos = response.data.updatedVideos;
+    setCompletedVideos([...completedVideos, videoId]);
 
   };
 
+  console.log(completedVideos)
   useEffect(() => {
     const fetchCourseProgress = async () => {
       const response = await axios.get("/api/courseProgress", {
@@ -63,20 +65,13 @@ const CourseView = () => {
         },
       });
       const courseProgress = response.data;
-      console.log(courseProgress);
-      setCourseProgress(courseProgress);
-    };
-    fetchCourseProgress();
-  }, [token]);
-
-  useEffect(() => {
-    const setProgress = () => {
       const calculatedProgress = Math.round((courseProgress.length / 18) * 100);
       setProgressValue(calculatedProgress);
     };
-    setProgress();
-  }, [courseProgress]);
+    fetchCourseProgress();
+  }, [token, videos, completedVideos]);
 
+ 
   return (
     <Layout>
       <>
@@ -98,7 +93,7 @@ const CourseView = () => {
         </div>
         {isLoading ? (
           <div className={styles.loading}>
-            Loading...
+            <Loading type="points" size="xl">Loading</Loading>
           </div>
         ) : (
           <div className={styles.accordionContainer}>
@@ -117,7 +112,7 @@ const CourseView = () => {
                   ></iframe>
                 </div>
                 <div className={styles.videoText}>
-                  <h3>{video.description}</h3>
+                  <h3>{video.resource_key}</h3>
                   <p>
                     {video.description}
                   </p>

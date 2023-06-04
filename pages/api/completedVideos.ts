@@ -26,7 +26,10 @@ const markComplete = async (req:NextApiRequest, res:NextApiResponse) => {
         {$set: {completed: completed} }
     )
 
-    res.status(200).json(result);
+    const updatedVideos = await videos.find({completed: true}).toArray();
+    res.status(200).json({result, updatedVideos });
+
+
     } catch(error) {
         console.error(error);
         res.status(500).json({error: "Error updating tasks"})
