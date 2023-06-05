@@ -19,7 +19,7 @@ export default function Login() {
         
         try {
             const registeredUser = {
-                email: userEmail,
+                email: userEmail.toLowerCase(),
                 password: userPassword
             }
            

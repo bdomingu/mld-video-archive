@@ -1,0 +1,4 @@
+mongosh
+env
+mongosh
+exit

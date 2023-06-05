@@ -112,7 +112,7 @@ const CourseView = () => {
                   ></iframe>
                 </div>
                 <div className={styles.videoText}>
-                  <h3>{video.resource_key}</h3>
+                  <h3>{videoName}</h3>
                   <p>
                     {video.description}
                   </p>
