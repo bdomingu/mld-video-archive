@@ -1,4 +1,0 @@
-mongosh
-env
-mongosh
-exit
