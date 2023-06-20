@@ -20,10 +20,11 @@ export default function Accordion({ title, children }: Props) {
     
       return (
         <div className={styles.accordion}>
-          <button className={styles.accordionTitle} onClick={toggleAccordion}>
-            {title}
-            <span className={styles.plus}><FontAwesomeIcon icon={faPlus}/></span> 
-            </button>
+          <div className={styles.accordionTitle} >
+          <span onClick={toggleAccordion} className={styles.plus}><FontAwesomeIcon icon={faPlus} /></span> 
+
+            <h1>{title}</h1>
+          </div>
           <div className={`${styles.accordionContent} ${isOpen ? styles.open : ''}`}>
             {children}
           </div>

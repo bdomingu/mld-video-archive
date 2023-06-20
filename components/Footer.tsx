@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
 import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons';
 import { faInstagramSquare} from '@fortawesome/free-brands-svg-icons';
+import { faTiktok } from '@fortawesome/free-brands-svg-icons';
+import { faYoutubeSquare} from '@fortawesome/free-brands-svg-icons';
 import Link from 'next/link';
 
 
@@ -28,6 +30,12 @@ export default function Footer({ footerColor }: {footerColor?: string}) {
                 <p>Copyright Modern Life Dating</p>
             </div>
             <div className={styles.socials}>
+                <Link href='https://www.tiktok.com/@mldmotivation?_t=8d4YSfHMrzk&_r=1'>
+                <span><FontAwesomeIcon icon={faTiktok} size='2x'></FontAwesomeIcon></span>
+                </Link>
+                <Link href='https://www.youtube.com/@ModernLifeDating'>
+                <span><FontAwesomeIcon icon={faYoutubeSquare} size='2x'></FontAwesomeIcon></span>
+                </Link>
                 <Link href='https://www.facebook.com/ModernLifeDating'>
                 <span><FontAwesomeIcon icon={faFacebookSquare} size='2x'></FontAwesomeIcon></span>
                 </Link>

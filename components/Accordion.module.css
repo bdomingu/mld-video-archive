@@ -6,20 +6,24 @@
   .accordionTitle {
     display: block;
     width: 80%;
-    background-color: #eee;
     border: none;
-    padding: 20px;
+    padding: 10px;
     text-align: left;
     cursor: pointer;
     margin: auto;
     background-color: #3A3A3A;
     box-sizing: border-box;
     margin-bottom: 1px;
+ 
+  }
+
+  .accordionTitle h1 {
     font-family: 'Zilla Slab';
     font-style: normal;
     font-weight: 400;
-    font-size: 1.8em;
+    font-size: 1.5em;
     color: #EAEAEA;
+    padding-left: 10px;
   }
 
   .accordionTitle:focus {
@@ -38,80 +42,34 @@
     padding-top: 30px;
     
   }
+
   
   .accordionContent.open {
     display: block;
   }
   
- .plus {
-  position:absolute;
-  right: 180px;
- }
-    
- @media only screen and (max-width:1200px) {
   .plus {
-    position:absolute;
-    right: 160px;
-   }
- }
-
- @media only screen and (max-width:1063px) {
-
- .plus {
-  right: 140px;
- }
-}
-
-@media only screen and (max-width:999px) {
-  .plus {
-    right: 120px;
-   }
+    background-color: transparent;
+    position:relative;
+    color: #EAEAEA;
+    float: right;
+    padding-right:15px;
+    padding-top: 15px;
+    font-size: 1.5rem;
   }
 
-  @media only screen and (max-width:765px) {
-    .plus {
-      right: 110px;
+
+  @media only screen and (max-width:500px) {
+  
+     .accordionTitle h1{
+      font-size: 1rem;
      }
 
-     .accordionTitle {
-      font-size: 1.2em;
-
+     .plus {
+      font-size: 1rem;
      }
-    }
+  }
 
-    @media only screen and (max-width:680px) {
-      .plus {
-        right: 90px;
-       }
-      }
+ 
 
-      @media only screen and (max-width:615px) {
-        .plus {
-          right: 80px;
-         }
-        }
-
-        @media only screen and (max-width:530px) {
-          .plus {
-            right: 70px;
-           }
-
-           .accordionTitle {
-            font-size: 1em;
-      
-           }
-        }
-
-
-        @media only screen and (max-width:450px) {
-          .plus {
-            right: 60px;
-           }
-
-           .accordionTitle {
-            font-size: 1em;
-      
-           }
-
-        
-        }
+    
