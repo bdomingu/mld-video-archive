@@ -56,7 +56,7 @@ const CourseView = () => {
 
   };
 
-  console.log(completedVideos)
+  
   useEffect(() => {
     const fetchCourseProgress = async () => {
       const response = await axios.get("/api/courseProgress", {
