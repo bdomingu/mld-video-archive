@@ -1,20 +1,24 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import ResetPassword from "./models/ResetPassword";
-import dotenv from 'dotenv';
-import connectToDatabase from "./database";
+import sequelize from "./database";
 
-dotenv.config();
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Connected to MySQL database!');
+  } catch (error) {
+    console.error('Error connecting to database:', error);
+  }
+})();
 
-const secretKey = process.env.RESET_SECRET_KEY as string;
+const secretKey = process.env.NEXT_PUBLIC_RESET_SECRET_KEY as string;
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASSWORD,
+    user: process.env.NEXT_PUBLIC_GMAIL_USER,
+    pass: process.env.NEXT_PUBLIC_GMAIL_PASSWORD,
   },
 });
 
@@ -27,17 +31,7 @@ const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
             return res.status(400).send({message: 'Email is required.'})
         }
 
-        const token = jwt.sign({ email }, secretKey, {expiresIn:'1h'});
-
-        await connectToDatabase()
-  
-        const userEmail = new ResetPassword ({
-            email,
-            token: bcrypt.hashSync(token, 10),
-            createdAt: new Date(),
-        });
-        console.log(userEmail)
-        await userEmail.save();
+        const token = jwt.sign({ email }, secretKey, {expiresIn:'1hr'});
 
         const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset_password?token=${token}`;
         const mailOptions = {
@@ -58,7 +52,7 @@ const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
         res.status(200).json({ message: 'Password reset link has been sent to your email' });
 
       } catch (error) {
-        console.error(error);
+        console.error(error)
         res.status(500).json({ message: 'Internal server error' });
       }
 };

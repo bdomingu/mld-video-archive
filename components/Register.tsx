@@ -82,7 +82,7 @@ export default function Signup() {
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
-                                {/* {errors.map((error: any, index) => {
+                                {errors.map((error: any, index) => {
                                     return(
                                     <div key={index}>
                                     <p className={styles.errors}
@@ -90,13 +90,13 @@ export default function Signup() {
                                     </div>
                                    
                                     )
-                                })} */}
-                        {/* <div className={styles.checkboxContainer}>
-                        <input type="checkbox" />
+                                })}
+                        <div className={styles.checkboxContainer}>
+                        {/* <input type="checkbox" />
                         <div className={styles.label}>
                         <label>I agree to the Terms of Use and Privacy Policy</label>
-                        </div>
                         </div> */}
+                        </div>
                          <p className={styles.passwordReference}>Password must contain at least 8 characters including an uppercase letter, a lowercase
                         letter, one number, and one special character [@$!%*?&].</p>
                         <div className={styles.button}>

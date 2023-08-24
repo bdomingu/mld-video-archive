@@ -23,6 +23,7 @@ const ResetPassword = () => {
             }
 
         } catch (error: any) {
+            console.error(error)
             setError(error.response.data.message)
         }
 

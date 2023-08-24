@@ -1,59 +1,76 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import User from "./models/User";
-import connectToDatabase from "./database";
+import User from './models/User';
+import * as Yup from 'yup';
+import { ValidationError } from "yup";
 
-/* look at not allowing the same password?
-    look into managing errors when token is incorrect or expired
-    Maybe provide another link within the same page?
-    Use Yup for password strength? 
-    Style new pages
-*/
 
-const secretKey = process.env.RESET_SECRET_KEY as string;
+const secretKey = process.env.NEXT_PUBLIC_RESET_SECRET_KEY as string;
 
 const resetPassword = async (req:NextApiRequest, res:NextApiResponse) => {
-    try {
-        const { token, password, confirmPassword } = req.body;
 
-        if (!token || !password || !confirmPassword) {
-            res.status(400).send({message: 'All fields are required'})
-        }
-
-        if (password !== confirmPassword) {
-            return res.status(400).send({ message: 'Passwords do not match'});
-        }
-        
-        const verifiedToken = jwt.verify(token, secretKey) as { email: string };
-        const { email } = verifiedToken;
-
+    try{
+    const token = req.query.token as string;
+    const {password, confirmPassword } = req.body;
     
-        const { db } = await connectToDatabase();
-        const resetPasswords = db.collection('resetpasswords');
-        const resetPassword = await resetPasswords.findOne({ email });
-        console.log(resetPassword)
 
-            if (!resetPassword) {
-                res.status(400).send({message: 'Invalid password reset token.'});
-                return;
+    try{
+        const decoded = jwt.verify(token, secretKey) as jwt.JwtPayload
+        const email = decoded.email
+
+        const validationSchema = Yup.object().shape({
+            password:Yup.string()
+            .min(8, 'Password must be at least 8 characters')
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/, 
+            'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character')
+            .required('Password is required'),
+            confirmPassword: Yup.string()
+            .required('Confirm password is required')
+            .oneOf([Yup.ref('password')], 'Passwords must match'), 
+        });
+
+        try{
+            await validationSchema.validate({password, confirmPassword}, { abortEarly: false })
+        } catch(error) {
+            if (error instanceof ValidationError) {
+                const errors = error.inner.map((err) => ({ field: err.path, message: err.message }));
+                return res.status(400).json({ errors });
             }
+            return res.status(500).json({ message: "Internal server error" });
+        }
 
-        const isTokenValid = await bcrypt.compare(token, resetPassword.token)
-            
-            if (!isTokenValid) {
-                res.status(400).send({message: 'Invalid password reset token.'});
+        const user = await User.findOne({where: {email:email}});
+        const currentPassword = user?.password;
 
-            }
+        if (!currentPassword) {
+            return res.status(400).json({ message: "User not found" });
+        }
+
+        const isSamePassword = await bcrypt.compare(password, currentPassword);
+        if (isSamePassword) {
+            return res.status(400).json({ message: "New password cannot be the same as the previous password" });
+
+        }
 
         const hashedPassword = await bcrypt.hash(password, 12);
-        const updatedUser = await User.findOneAndUpdate({ email }, {password: hashedPassword});
 
-        await resetPasswords.deleteOne({ email });
-        res.status(200).json({ message: 'Password has been reset successfully' });
+        User.update(
+            {password: hashedPassword},
+            {where: {email:email}}
+        ).then(() => {
+            return res.status(201).json({ message: 'User registered successfully' });
+        });
 
+    } catch(err) {
+        return res.status(400).send({message:"The link has expired or is invalid."})
+    }  
+ 
     } catch (error) {
-        console.error(error);
+        if (error instanceof ValidationError) {
+            const errors = error.inner.map((err) => ({ field: err.path, message: err.message }));
+            return res.status(400).json({ errors });
+        }
         res.status(500).json({ message: 'Internal server error' });
     }
 }
