@@ -12,7 +12,7 @@ export default function Courses() {
                 <p>The course so powerful that Teachable had to ban it. Learn how to attract, manage and expand relationships with multiple women simultaneously.</p>
                  <div className={styles.learnMore}>
                 <Link href='/courseView'>
-                <button>Learn Now</button>
+                <button>Watch Now</button>
                 </Link>
                 </div>
             </div>

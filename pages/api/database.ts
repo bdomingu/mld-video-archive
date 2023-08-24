@@ -1,22 +1,17 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
 
-dotenv.config();
+const sequelize = new Sequelize({
+  database: process.env.NEXT_PUBLIC_DATABASE,
+  username: process.env.NEXT_PUBLIC_USER,
+  password: process.env.NEXT_PUBLIC_PASSWORD,
+  host: process.env.NEXT_PUBLIC_HOST,
+  port: 3306, 
+  dialect: 'mysql',
+//   dialectOptions: {
+//     socketPath: `/cloudsql/${process.env.NEXT_PUBLIC_HOST}`
+// },
+});
 
-interface Database {
-    db: mongoose.Connection;
-  }
-  
-  const connectToDatabase = async (): Promise<Database> => {
-    const MONGODB_URI = process.env.MONGODB_URI;
-    if (!MONGODB_URI) {
-      throw new Error('MONGODB_URI is not defined');
-    } else {
-      await mongoose.connect(MONGODB_URI);
-      const connection = mongoose.connection
-      console.log("connected to the db")
-      return { db: connection };
-    }
-  };
+export default sequelize;
 
-export default connectToDatabase;
+// === 'localhost' ? "http://localhost:3000" : `/cloudsql/${process.env.NEXT_PUBLIC_HOST}`,

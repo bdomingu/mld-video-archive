@@ -5,7 +5,7 @@ interface CustomNextApiRequest extends NextApiRequest {
     user: any; 
 }
 const authenticateToken = (req:CustomNextApiRequest, res:NextApiResponse, next:any) => {
-    const secret = process.env.SECRET_KEY as string;
+    const secret = process.env.NEXT_PUBLIC_SECRET_KEY as string;
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     

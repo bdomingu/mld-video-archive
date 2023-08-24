@@ -1,57 +1,83 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import connectToDatabase from "./database";
-import User from './models/User';
 import bcrypt from 'bcrypt';
+import User from './models/User';
 import * as Yup from 'yup';
+import sequelize from "./database";
+import { ValidationError } from "yup";
 
-const validationSchema = Yup.object().shape({
-    name:Yup.string().required(),
-    email:Yup.string().email().required(),
-    password:Yup.string().min(8, 'Password must be at least 8 characters')
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/, 
-    'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character')
-    .required('Password is required'),
-    confirmPassword: Yup.string().required().oneOf([Yup.ref('password')], 'Passwords must match'), 
-});
-
-const register = async (req: NextApiRequest, res:NextApiResponse) => {
+(async () => {
     try {
-        const { name, email, password, confirmPassword } = req.body;
+      await sequelize.authenticate();
+      console.log('Connected to MySQL database!');
+    } catch (error) {
+      console.error('Error connecting to database:', error);
+    }
+  })();
 
-        await validationSchema.validate({name, email, password, confirmPassword})
-        
-        const hashedPassword = await bcrypt.hash(password, 12)
 
-        if (!name || !email || !password || !confirmPassword) {
-          return res.status(400).send({message: 'Please enter all fields'});
-        }
-      
-        if (password !== confirmPassword) {
-          return res.status(400).send({ message: 'Passwords do not match'});
-        }
-        
-        const { db } = await connectToDatabase();
-        const users = db.collection('users');
-        const existingUser = await users.findOne({ email });
-      
-        if (existingUser) {
-          return res.status(400).send({ message: 'Email already exists'});
-        }
-      
-        const user = new User({
-          name, 
-          email,
-          password: hashedPassword,
+
+
+const register = async (req:NextApiRequest, res:NextApiResponse) => {
+
+    if (req.method !== 'POST') {
+        return res.status(405).send({message:"Method not allowed"})
+    }
+
+    const { user_id, name, email, password, confirmPassword } = req.body;
+
+
+    await User.sync();
+
+    const validateExistingUser = async (email: string): Promise<boolean> => {
+        const existingUser = await User.findOne({
+            where: { email },
         });
-      
-        await user.save();
-      
-        res.status(201).send({ message: 'User registered successfully'});
+        
+        if (existingUser) {
+            throw new ValidationError("User already exists", email, "email");
+        }
+        return true;
+    };
+
+    const validationSchema = Yup.object().shape({
+        name:Yup.string().required('Please enter your name.'),
+        email:Yup.string()
+        .email('Please enter a valid email.')
+        .required('Email is required.')
+        .test("existingUser", "Use already exists", validateExistingUser),
+        password:Yup.string()
+        .min(8, 'Password must be at least 8 characters')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/, 
+        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character')
+        .required('Password is required'),
+        confirmPassword: Yup.string()
+        .required('Confirm password is required')
+        .oneOf([Yup.ref('password')], 'Passwords must match'), 
+    });
+
+    try {
+        await validationSchema.validate({ name, email, password, confirmPassword }, { abortEarly: false });
       } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
-      } 
-    
+        if (error instanceof ValidationError) {
+          const errors = error.inner.map((err) => ({ field: err.path, message: err.message }));
+          return res.status(400).json({ errors });
+        }
+        console.log(error)
+        return res.status(500).json({ message: "Internal server error" });
+      }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+
+        const user = new User({
+          user_id,
+          name, 
+          email, 
+          password: hashedPassword});
+        await user.save();
+
+        return res.status(201).json({ message: 'User registered successfully' });
+   
 }
 
 export default register;

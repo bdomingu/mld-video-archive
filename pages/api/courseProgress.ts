@@ -1,27 +1,29 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import connectToDatabase from "./database";
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import Video from './models/Videos';
 
 
 
 
 const courseProgress = async (req:NextApiRequest, res:NextApiResponse) => {
-    const secret = process.env.SECRET_KEY as string;
+    const secret = process.env.NEXT_PUBLIC_SECRET_KEY as string;
 
     if (req.method !== 'GET') {
         return res.status(405).send({message:'Method not allowed'})
     }
+    try{
     const authHeader = req.headers['authorization'];
     const token: any = authHeader && authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, secret) as JwtPayload; 
     const userId = decodedToken.userId; 
-    try {
     
-    const { db } = await connectToDatabase();
-    const videos = db.collection('videos');
-
-    const result =  await videos.find({userId, completed: true}).toArray();
-
+    const result =  await Video.findAll({
+        where: {
+            user_id: userId,
+            completed: true
+        }
+        
+    });
     res.status(200).json(result);
     } catch(error) {
         console.error(error);

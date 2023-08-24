@@ -6,17 +6,31 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import withAuth from "@/components/ProtectedRoute";
 import { Loading } from '@nextui-org/react';
+import { useRouter } from 'next/router';
 
 
 
 const CourseView = () => {
   const [videos, setVideos] = useState([]);
   const [completedVideos, setCompletedVideos] = useState<string[]>([]);
+  const [completedVideoData, setCompletedVideoData] = useState<string[]>([]);
   const [token, setToken] = useState(Cookies.get("token"));
   const [progressValue, setProgressValue] = useState(0);
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
-
+  
+  useEffect(() => {
+    const jwt = Cookies.get('token');
+    if (!jwt) {
+      router.replace('/'); 
+    } else {
+      setTimeout(() => {
+        setIsPageLoading(false);
+      }, 2000);
+    }
+  }, [router]);
   useEffect(() => {
     
     const saveFetchedVideos = async () => {
@@ -47,34 +61,46 @@ const CourseView = () => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-
+    try {
     const response = await axios.patch("/api/completedVideos/", body, {
       headers,
     });
-    const completedVideos = response.data.updatedVideos;
-    setCompletedVideos([...completedVideos, videoId]);
-
+    const data = response.data
+    setCompletedVideoData(data)
+  } catch(error){
+    console.log(error)
+  }
   };
+
 
   
   useEffect(() => {
     const fetchCourseProgress = async () => {
+      try{
       const response = await axios.get("/api/courseProgress", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const courseProgress = response.data;
+      courseProgress.map((course: any) => {
+        setCompletedVideos((prevCompletedVideos) => [...prevCompletedVideos, course.video_id]);
+      })
       const calculatedProgress = Math.round((courseProgress.length / 18) * 100);
       setProgressValue(calculatedProgress);
+    }catch(error){
+      console.log(error)
+    }
     };
     fetchCourseProgress();
-  }, [token, videos, completedVideos]);
-
+  }, [token, videos, completedVideoData]);
  
   return (
     <Layout>
-      <>
+      {isPageLoading ? (
+        <Loading/>
+      ) : (
+        <>
         <div className={styles.textContainer}>
           <h1>Dark Pass Harem</h1>
           <p>
@@ -116,12 +142,14 @@ const CourseView = () => {
                   <p>
                     {video.description}
                   </p>
-                  <button
+                    <button
                     className={styles.markComplete}
                     onClick={() => markCompleted(video.resource_key)}
                   >
-                    Completed
+                    {completedVideos.includes(video.resource_key) ? "✓" : "Complete"}
                   </button>
+                  
+                  
                 </div>
               </Accordion>
             );
@@ -130,8 +158,10 @@ const CourseView = () => {
         )}
       
       </>
+      )}
+   
     </Layout>
   );
 };
 
-export default withAuth(CourseView);
+export default CourseView;

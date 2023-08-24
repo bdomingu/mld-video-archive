@@ -1,32 +1,38 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import connectToDatabase from "./database";
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import Video from "./models/Videos";
 
 
 
 
 const markComplete = async (req:NextApiRequest, res:NextApiResponse) => {
-    const secret = process.env.SECRET_KEY as string;
+    const secret = process.env.NEXT_PUBLIC_SECRET_KEY as string;
+
     if (req.method !== 'PATCH') {
         return res.status(405).send({message:'Method not allowed'})
     }
     try {
     const { videoId, completed } = req.body
+    console.log('Video id' + videoId)
     const authHeader = req.headers['authorization'];
     const token: any = authHeader && authHeader.split(' ')[1];
     const decodedToken = jwt.verify(token, secret) as JwtPayload; 
     const userId = decodedToken.userId;
 
-    const { db } = await connectToDatabase();
-    const videos = db.collection('videos');
+    
 
-    const result =  await videos.updateOne(
-        {userId: `${userId}`, id: `${videoId}`},
-        {$set: {completed: completed} }
-    )
+    const result =  await Video.update(
+        {completed: completed},
+        {
+            where: {
+                user_id:userId,
+                video_id:videoId
+            } 
+        }
+    );
 
-    const updatedVideos = await videos.find({completed: true}).toArray();
-    res.status(200).json({result, updatedVideos });
+        
+    res.status(200).json({result, message:'video updated'});
 
 
     } catch(error) {
