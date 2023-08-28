@@ -19,7 +19,7 @@ const courseProgress = async (req:NextApiRequest, res:NextApiResponse) => {
     
     const result =  await Video.findAll({
         where: {
-            user_id: userId,
+            member_id: userId,
             completed: true
         }
         

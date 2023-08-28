@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from 'bcrypt';
-import User from './models/User';
 import * as Yup from 'yup';
 import sequelize from "./database";
 import { ValidationError } from "yup";
+import Member from "./models/Member";
 
 (async () => {
     try {
@@ -23,13 +23,13 @@ const register = async (req:NextApiRequest, res:NextApiResponse) => {
         return res.status(405).send({message:"Method not allowed"})
     }
 
-    const { user_id, name, email, password, confirmPassword } = req.body;
+    const { member_id, name, email, password, confirmPassword } = req.body;
 
 
-    await User.sync();
+    await Member.sync();
 
     const validateExistingUser = async (email: string): Promise<boolean> => {
-        const existingUser = await User.findOne({
+        const existingUser = await Member.findOne({
             where: { email },
         });
         
@@ -69,8 +69,8 @@ const register = async (req:NextApiRequest, res:NextApiResponse) => {
     const hashedPassword = await bcrypt.hash(password, 12);
 
 
-        const user = new User({
-          user_id,
+        const user = new Member({
+          member_id,
           name, 
           email, 
           password: hashedPassword});

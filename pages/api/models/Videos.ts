@@ -1,10 +1,10 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../database';
-import User from '../models/User'
+import Member from './Member';
 
 
 class Video extends Model {
-  public user_id!: string; 
+  public member_id!: string; 
   public video_id!: string;
   public name!: string; 
   public watched!: boolean;
@@ -13,9 +13,9 @@ class Video extends Model {
 
 Video.init(
   {
-    user_id: {
+    member_id: {
       type: DataTypes.STRING,
-      references: {model: 'users', key:'user_id'}
+      references: {model: 'members', key:'member_id'}
     
     },
     video_id: {
@@ -43,7 +43,7 @@ Video.init(
   }
 );
 
-Video.belongsTo(User, { foreignKey: 'user_id'});
+Video.belongsTo(Member, { foreignKey: 'member_id'});
 
 
 export default Video;

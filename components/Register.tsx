@@ -24,7 +24,7 @@ export default function Signup() {
         e.preventDefault();
         try {
         const user = {
-            user_id: uuidv4(),
+            member_id: uuidv4(),
             name: name, 
             email: email, 
             password: password,
@@ -40,7 +40,7 @@ export default function Signup() {
 
     } catch (error:any) {
         const errors = error.response.data
-        console.log(errors)
+        console.log(error)
         setErrors(error.response.data.errors);
     } finally {
         setIsLoading(false);
@@ -82,7 +82,7 @@ export default function Signup() {
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
-                                {errors.map((error: any, index) => {
+                                {/* {errors.map((error: any, index) => {
                                     return(
                                     <div key={index}>
                                     <p className={styles.errors}
@@ -90,7 +90,7 @@ export default function Signup() {
                                     </div>
                                    
                                     )
-                                })}
+                                })} */}
                         <div className={styles.checkboxContainer}>
                         {/* <input type="checkbox" />
                         <div className={styles.label}>

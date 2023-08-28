@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import User from './models/User';
 import * as Yup from 'yup';
 import { ValidationError } from "yup";
+import Member from "./models/Member";
 
 
 const secretKey = process.env.NEXT_PUBLIC_RESET_SECRET_KEY as string;
@@ -40,7 +40,7 @@ const resetPassword = async (req:NextApiRequest, res:NextApiResponse) => {
             return res.status(500).json({ message: "Internal server error" });
         }
 
-        const user = await User.findOne({where: {email:email}});
+        const user = await Member.findOne({where: {email:email}});
         const currentPassword = user?.password;
 
         if (!currentPassword) {
@@ -55,7 +55,7 @@ const resetPassword = async (req:NextApiRequest, res:NextApiResponse) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        User.update(
+        Member.update(
             {password: hashedPassword},
             {where: {email:email}}
         ).then(() => {

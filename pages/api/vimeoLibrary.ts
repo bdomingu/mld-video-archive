@@ -21,14 +21,13 @@ export default async function fetchVideos(req:NextApiRequest, res:NextApiRespons
     const videos = response.data.data
    
    try{
-    await Video.sync()
 
-    const existingVideos = await Video.findOne({ where: { user_id: userId } });
-    if(existingVideos === null || !existingVideos.user_id) {
+    const existingVideos = await Video.findOne({ where: { member_id: userId } });
+    if(existingVideos === null || !existingVideos.member_id) {
       videos.forEach((video:any) => {
 
         const newVideo = new Video({
-           user_id: userId,
+           member_id: userId,
            video_id: video.resource_key,
            name: video.name,
            watched: false,

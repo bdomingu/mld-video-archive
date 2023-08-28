@@ -25,7 +25,7 @@ const markComplete = async (req:NextApiRequest, res:NextApiResponse) => {
         {completed: completed},
         {
             where: {
-                user_id:userId,
+                member_id:userId,
                 video_id:videoId
             } 
         }

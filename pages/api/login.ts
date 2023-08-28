@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from 'bcrypt';
 import { serialize } from 'cookie';
 import jwt from 'jsonwebtoken';
-import User from './models/User';
 import sequelize from "./database";
+import Member from "./models/Member";
 
 
 (async () => {
@@ -42,7 +42,7 @@ const login = async (req:NextApiRequest, res:NextApiResponse) => {
     }
 
     try {
-        const user = await User.findOne({
+        const user = await Member.findOne({
             where: { email },
         });
         
@@ -56,7 +56,7 @@ const login = async (req:NextApiRequest, res:NextApiResponse) => {
             return res.status(401).send({message: 'Invalid email or password'})
         }
 
-        const token = jwt.sign({ userId: user.user_id, admin: user.admin }, secret, {expiresIn: '1h'});
+        const token = jwt.sign({ userId: user.member_id, admin: user.admin }, secret, {expiresIn: '1h'});
         setTokenCookieMiddleware(res, token);
         return res.status(200).json({token, user, message: 'Logged in successfully'})
 
