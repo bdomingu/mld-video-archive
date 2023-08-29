@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
+import Image from "next/image";
 
 export default function Home() {
   const router = useRouter();
@@ -20,7 +21,12 @@ export default function Home() {
       <Layout>
         <div className={styles.container}>
           <div className={styles.heroImage}>
-            <img src="/images/mld.png" />
+            <Image 
+            src="/images/mld.png" 
+            alt="mld"
+            width={550}
+            height={574}
+            />
           </div>
           <div className={styles.contentContainer}>
             <div className={styles.content}>

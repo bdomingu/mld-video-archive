@@ -1,10 +1,9 @@
 import Layout from "@/components/Layout";
 import styles from "./courseView.module.css";
 import Accordion from "@/components/Accordion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import withAuth from "@/components/ProtectedRoute";
 import { Loading } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 

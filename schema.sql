@@ -10,6 +10,7 @@ CREATE TABLE members(
 );
 
 CREATE TABLE videos(
+    id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
     member_id varchar(255) NOT NULL,
     video_id varchar(255) NOT NULL,
     name varchar(255) NOT NULL,

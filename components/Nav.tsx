@@ -8,6 +8,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from "next/router";
+import Image from 'next/image';
 
 
 
@@ -44,7 +45,14 @@ export default function Nav() {
         <nav className={styles.navContainer}>
             <div className={styles.navContent}>
                 <div className={styles.logo}>
-                <Link href='/'><img src='/images/image8.png' /></Link>
+                <Link href='/'>
+                    <Image 
+                    src='/images/image8.png' 
+                    alt='logo'
+                    width={150}
+                    height={97}
+                    />
+                </Link>
                 </div>
                 <div className={styles.text}>
                 <h2>Modern Life Dating</h2>

@@ -47,7 +47,7 @@ const login = async (req:NextApiRequest, res:NextApiResponse) => {
         });
         
         if (!user) {
-            return res.status(409).json({ error: 'User already exists' });
+            return res.status(400).json({ message: 'Email not registered' });
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password)
