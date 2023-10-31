@@ -34,6 +34,9 @@ const ResetPassword = () => {
             console.error(error)
             setError(error.response.data.message)
         }
+        finally {
+            setLoading(false);
+        }
 
     }
 
