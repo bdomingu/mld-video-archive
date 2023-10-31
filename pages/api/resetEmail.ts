@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
 import sequelize from "./database";
+import Member from "./models/Member";
 
 (async () => {
   try {
@@ -31,6 +32,12 @@ const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
             return res.status(400).send({message: 'Email is required.'})
         }
 
+        const member = await Member.findOne({where: {email:email}});
+
+        if(!member) {
+          return res.status(400).send({message:'Email does not exist.'})
+        }
+
         const token = jwt.sign({ email }, secretKey, {expiresIn:'1hr'});
 
         const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset_password?token=${token}`;
@@ -39,7 +46,7 @@ const resetEmail = async (req:NextApiRequest, res:NextApiResponse) => {
             to: email,
             subject: '[MLD Academy] Please reset your password',
             html: `
-              <p>You recently requested to reset your password for Modern Life Dating Academy.</p>
+              <p>You recently requested to reset your password for Modern Life Dating Academy (Dark Pass Harem).</p>
               <p>Click the link below to reset your password:</p>
               <a href="${resetUrl}">${resetUrl}</a>
               <p>If you do not use this link within 1 hour, it will expire.</p>

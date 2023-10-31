@@ -45,6 +45,7 @@
     "next-auth": "^4.22.1",
     "next-connect": "^0.13.0",
     "next-cookies": "^2.0.3",
+    "node-cache": "^5.1.2",
     "nodemailer": "^6.9.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",

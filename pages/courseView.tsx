@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Loading } from '@nextui-org/react';
+import ReactLoading from 'react-loading';
 import { useRouter } from 'next/router';
 
 
@@ -97,7 +98,10 @@ const CourseView = () => {
   return (
     <Layout>
       {isPageLoading ? (
-        <Loading/>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <ReactLoading type="bubbles" color="#146DA6" height={300} width={100}/>
+        </div>
+        
       ) : (
         <>
         <div className={styles.textContainer}>

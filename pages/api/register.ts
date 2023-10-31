@@ -69,12 +69,12 @@ const register = async (req:NextApiRequest, res:NextApiResponse) => {
     const hashedPassword = await bcrypt.hash(password, 12);
 
 
-        const user = new Member({
+        const member = new Member({
           member_id,
           name, 
           email, 
           password: hashedPassword});
-        await user.save();
+        await member.save();
 
         return res.status(201).json({ message: 'User registered successfully' });
    
