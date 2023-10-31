@@ -4,12 +4,15 @@ import styles from './forgot_password.module.css'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from "next/link";
+import Loading from '@/components/Loading';
 
 
 const ResetPassword = () => {
     const [emailAddress, setEmailAddress] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const router = useRouter();
 
     const handleResetRequest = async (e: React.FormEvent<HTMLFormElement>):Promise<void>  => {
@@ -19,10 +22,12 @@ const ResetPassword = () => {
             const data = {
                 email:emailAddress
             }
+            setLoading(true);
             const response = await axios.post('api/resetEmail', data)
             const status = response.status
             if (status === 200) {
                 setSuccess(true);
+                setLoading(false);
             }
 
         } catch (error: any) {
@@ -53,9 +58,11 @@ const ResetPassword = () => {
             <h1>Reset Password</h1>
         </div>
         </div>
-       
+       {loading ? (
+        <Loading/>
+       ) : (
         <div>
-                {success ? (
+                {!loading && success ? (
                     <>
                     <div className={styles.formContainer}>
                         <div className={styles.successFlex}>
@@ -88,6 +95,7 @@ const ResetPassword = () => {
                 )}
 
             </div>
+            )}
             </>
     )
 }

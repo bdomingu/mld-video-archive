@@ -4,12 +4,14 @@ import axios from "axios";
 import styles from './reset_password.module.css';
 import Image from "next/image";
 import Link from "next/link";
+import Loading from "@/components/Loading";
 
 const ResetPasswordPage = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState([])
     const [linkError, setLinkError] = useState('');
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
     const { token } = router.query
     
@@ -17,6 +19,8 @@ const ResetPasswordPage = () => {
     const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>):Promise<void> => {
 
         e.preventDefault();
+        setLoading(true);
+
         try{
             const data = {
                 password: newPassword,
@@ -30,64 +34,68 @@ const ResetPasswordPage = () => {
         } catch (error: any) {
             setLinkError(error.response.data.message)
             setErrors(error.response.data.errors);
-
+        } finally {
+            setLoading(false);
         }
 
     }
 
     return (
+        <>
+        {loading ? (
+            <Loading/>
+        ) : (
         <><div className={styles.container}>
-            <div className={styles.logoContainer}>
-                <Link  href='/'>
-                <Image className={styles.logo} 
-                src='/images/image8.png'
-                alt="logo"
-                width={100}
-                height={200}
-                 />
-                </Link>
-               
-            </div>
-            <div className={styles.textContainer}>
-                <h1>Reset Password</h1>
-            </div>
-        </div>
-            <div className={styles.formContainer}>
-                <form  className={styles.form} onSubmit={(e) => void handleResetPassword(e)}>
-                <div className={styles.inputContainer}>
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)} />
-                    <label>Confirm Password</label>
-                    <input
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)} />
-                    
-                    {errors && errors.length > 0 && (
-                        <div>
-                            {errors.map((error: any, index) => {
-                                return(
-                                <div key={index}>
-                                <p className={styles.errors}>{error.message}</p>
-                                </div>
-                                 
-                                )
-                            })}
+                        <div className={styles.logoContainer}>
+                            <Link href='/'>
+                                <Image className={styles.logo}
+                                    src='/images/image8.png'
+                                    alt="logo"
+                                    width={100}
+                                    height={200} />
+                            </Link>
+
                         </div>
-                    )}
-                   {linkError && <p className={styles.errors}>{linkError}</p> }
-                    <button 
-                    className={styles.button}
-                    type="submit"
-                    >Change Password</button>
-                    </div>
-                    <p>Password must contain at least 8 characters including an uppercase letter, a lowercase
-                        letter, one number, and one special character [@$!%*?&].</p>
-                </form>
-        </div>
+                        <div className={styles.textContainer}>
+                            <h1>Reset Password</h1>
+                        </div>
+                    </div><div className={styles.formContainer}>
+                            <form className={styles.form} onSubmit={(e) => void handleResetPassword(e)}>
+                                <div className={styles.inputContainer}>
+                                    <label>Password</label>
+                                    <input
+                                        type="password"
+                                        value={newPassword}
+                                        onChange={(e) => setNewPassword(e.target.value)} />
+                                    <label>Confirm Password</label>
+                                    <input
+                                        type="password"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)} />
+
+                                    {errors && errors.length > 0 && (
+                                        <div>
+                                            {errors.map((error: any, index) => {
+                                                return (
+                                                    <div key={index}>
+                                                        <p className={styles.errors}>{error.message}</p>
+                                                    </div>
+
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+                                    {linkError && <p className={styles.errors}>{linkError}</p>}
+                                    <button
+                                        className={styles.button}
+                                        type="submit"
+                                    >Change Password</button>
+                                </div>
+                                <p>Password must contain at least 8 characters including an uppercase letter, a lowercase
+                                    letter, one number, and one special character [@$!%*?&].</p>
+                            </form>
+                        </div></>
+        )}
         </>
     )
 }
